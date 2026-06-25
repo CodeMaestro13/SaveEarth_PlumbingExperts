@@ -50,7 +50,7 @@ export default function AboutPage() {
           <MotionReveal>
             <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-premium">
               <Image
-                src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80"
+                src="/images/india-projects/indian-apartment-plumbing.png"
                 alt="Save Earth Plumbing Experts team inspecting a project site"
                 fill
                 className="object-cover"

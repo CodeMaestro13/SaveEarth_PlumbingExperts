@@ -15,28 +15,23 @@ type HeroSectionProps = {
 const backgroundSlides = [
   {
     title: "Professional plumbing installation",
-    image:
-      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1600&q=80"
+    image: "/images/india-projects/indian-apartment-plumbing.png"
   },
   {
     title: "Swimming pool construction and design",
-    image:
-      "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1600&q=80"
+    image: "/images/india-projects/indian-pool-construction.png"
   },
   {
     title: "Terrace waterproofing project",
-    image:
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1600&q=80"
+    image: "/images/india-projects/indian-terrace-waterproofing.png"
   },
   {
     title: "Water body and fountain development",
-    image:
-      "https://images.unsplash.com/photo-1564419320461-6870880221ad?auto=format&fit=crop&w=1600&q=80"
+    image: "/images/india-projects/indian-water-feature-installation.png"
   },
   {
     title: "Commercial water infrastructure work",
-    image:
-      "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=1600&q=80"
+    image: "/images/india-projects/indian-pump-room-maintenance.png"
   }
 ];
 

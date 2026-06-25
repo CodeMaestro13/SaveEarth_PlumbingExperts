@@ -18,6 +18,15 @@ import {
 } from "lucide-react";
 import type { Faq, NavItem, Project, Service, Stat } from "@/types/site";
 
+const projectImages = {
+  plumbing: "/images/india-projects/indian-apartment-plumbing.png",
+  terraceWaterproofing: "/images/india-projects/indian-terrace-waterproofing.png",
+  bathroomWaterproofing: "/images/india-projects/indian-bathroom-waterproofing.png",
+  poolConstruction: "/images/india-projects/indian-pool-construction.png",
+  pumpRoom: "/images/india-projects/indian-pump-room-maintenance.png",
+  waterFeature: "/images/india-projects/indian-water-feature-installation.png"
+};
+
 export const company = {
   name: "Save Earth Plumbing Experts",
   shortName: "Save Earth",
@@ -59,8 +68,7 @@ export const services: Service[] = [
     description:
       "Membrane, coating, and slope-correction systems that protect exposed terraces from seepage and structural damage.",
     icon: ShieldCheck,
-    image:
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.terraceWaterproofing,
     features: ["Surface preparation", "Elastomeric coating", "Flood testing"],
     category: "Waterproofing"
   },
@@ -69,8 +77,7 @@ export const services: Service[] = [
     description:
       "Durable roof waterproofing for residential, commercial, and industrial buildings with long-term performance.",
     icon: Building2,
-    image:
-      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.terraceWaterproofing,
     features: ["Heat reflective options", "Joint treatment", "Warranty support"],
     category: "Waterproofing"
   },
@@ -79,8 +86,7 @@ export const services: Service[] = [
     description:
       "Negative-side and positive-side waterproofing systems for basements, retaining walls, and underground structures.",
     icon: Droplets,
-    image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.pumpRoom,
     features: ["Injection grouting", "Drainage planning", "Crack sealing"],
     category: "Waterproofing"
   },
@@ -89,8 +95,7 @@ export const services: Service[] = [
     description:
       "Pre-tile waterproofing and wet-area sealing for bathrooms, kitchens, utility areas, and balconies.",
     icon: Bath,
-    image:
-      "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.bathroomWaterproofing,
     features: ["Pipe collar sealing", "Tile-compatible layers", "Leak prevention"],
     category: "Waterproofing"
   },
@@ -99,8 +104,7 @@ export const services: Service[] = [
     description:
       "End-to-end plumbing installations for apartments, villas, offices, hospitality spaces, and commercial complexes.",
     icon: Wrench,
-    image:
-      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.plumbing,
     features: ["CPVC, PPR, UPVC lines", "Pressure testing", "Fixture installation"],
     category: "Plumbing"
   },
@@ -109,8 +113,7 @@ export const services: Service[] = [
     description:
       "Fast diagnosis and repair of damaged pipes, low pressure, blockages, and concealed leakage points.",
     icon: Hammer,
-    image:
-      "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.plumbing,
     features: ["Emergency repairs", "Minimal civil work", "Durable replacement"],
     category: "Plumbing"
   },
@@ -119,8 +122,7 @@ export const services: Service[] = [
     description:
       "Advanced leak identification using pressure tests, moisture mapping, and non-destructive inspection methods.",
     icon: LifeBuoy,
-    image:
-      "https://images.unsplash.com/photo-1604014237800-1c9102c219da?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.plumbing,
     features: ["Non-invasive checks", "Root-cause report", "Repair estimate"],
     category: "Plumbing"
   },
@@ -129,8 +131,7 @@ export const services: Service[] = [
     description:
       "Premium concrete pool design and construction with filtration rooms, waterproofing, lighting, and finishes.",
     icon: Waves,
-    image:
-      "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.poolConstruction,
     features: ["RCC pool shell", "Filtration systems", "Tile and coping work"],
     category: "Swimming Pools"
   },
@@ -139,8 +140,7 @@ export const services: Service[] = [
     description:
       "Scheduled pool cleaning, water balancing, equipment checks, and seasonal maintenance for reliable operation.",
     icon: Sparkles,
-    image:
-      "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.waterFeature,
     features: ["Water chemistry", "Filter servicing", "Preventive care"],
     category: "Swimming Pools"
   },
@@ -149,8 +149,7 @@ export const services: Service[] = [
     description:
       "Engineered ponds, reflective pools, landscape water bodies, and circulation systems for premium properties.",
     icon: Droplets,
-    image:
-      "https://images.unsplash.com/photo-1564419320461-6870880221ad?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.waterFeature,
     features: ["Civil detailing", "Water circulation", "Waterproof lining"],
     category: "Water Features"
   },
@@ -159,8 +158,7 @@ export const services: Service[] = [
     description:
       "Decorative and architectural fountains with pumps, nozzles, lighting, automation, and waterproofing.",
     icon: Sparkles,
-    image:
-      "https://images.unsplash.com/photo-1523207138085-2997fca14f04?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.waterFeature,
     features: ["Nozzle selection", "Lighting integration", "Pump sizing"],
     category: "Water Features"
   },
@@ -169,8 +167,7 @@ export const services: Service[] = [
     description:
       "Robust plumbing networks for offices, retail, institutions, hospitals, restaurants, and multi-storey buildings.",
     icon: Building2,
-    image:
-      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.pumpRoom,
     features: ["Code-aligned execution", "Pump rooms", "Drainage systems"],
     category: "Commercial"
   },
@@ -179,8 +176,7 @@ export const services: Service[] = [
     description:
       "High-capacity water supply, drainage, process lines, and utility systems for factories and warehouses.",
     icon: Factory,
-    image:
-      "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.pumpRoom,
     features: ["Utility piping", "Heavy-duty materials", "Safety planning"],
     category: "Commercial"
   },
@@ -189,8 +185,7 @@ export const services: Service[] = [
     description:
       "Reliable AMC plans for residential societies, hotels, offices, and facilities that need predictable upkeep.",
     icon: Clock3,
-    image:
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.pumpRoom,
     features: ["Scheduled inspections", "Priority support", "Detailed reports"],
     category: "Maintenance"
   }
@@ -275,8 +270,7 @@ export const featuredProjects: Project[] = [
     title: "Premium Villa Pool & Deck",
     category: "Swimming Pools",
     location: "Lonavala",
-    image:
-      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.poolConstruction,
     description:
       "Turnkey RCC pool, filtration room, waterproofing, lighting, and stone deck for a private weekend home."
   },
@@ -284,8 +278,7 @@ export const featuredProjects: Project[] = [
     title: "Commercial Terrace Waterproofing",
     category: "Waterproofing",
     location: "Pune",
-    image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.terraceWaterproofing,
     description:
       "12,000 sq. ft. terrace treatment with crack repair, slope correction, coating system, and flood testing."
   },
@@ -293,8 +286,7 @@ export const featuredProjects: Project[] = [
     title: "Corporate Office Plumbing Upgrade",
     category: "Plumbing",
     location: "Mumbai",
-    image:
-      "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.plumbing,
     description:
       "Water supply and drainage upgrade completed floor-wise without interrupting daily business operations."
   }
@@ -306,48 +298,42 @@ export const galleryProjects: Project[] = [
     title: "Apartment Basement Seepage Control",
     category: "Waterproofing",
     location: "Nashik",
-    image:
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.bathroomWaterproofing,
     description: "Injection grouting and wall treatment for an occupied residential basement."
   },
   {
     title: "Luxury Courtyard Fountain",
     category: "Water Features",
     location: "Pune",
-    image:
-      "https://images.unsplash.com/photo-1523207138085-2997fca14f04?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.waterFeature,
     description: "Custom fountain with underwater lighting, concealed piping, and automated controls."
   },
   {
     title: "Hotel Pool Maintenance Program",
     category: "Swimming Pools",
     location: "Goa",
-    image:
-      "https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.poolConstruction,
     description: "Monthly cleaning, chemical balancing, and equipment inspections for a boutique hotel."
   },
   {
     title: "Retail Complex Pump Room",
     category: "Commercial Projects",
     location: "Thane",
-    image:
-      "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.pumpRoom,
     description: "Utility plumbing and pump room works for a high-footfall retail complex."
   },
   {
     title: "Landscape Reflective Pool",
     category: "Water Features",
     location: "Alibaug",
-    image:
-      "https://images.unsplash.com/photo-1564419320461-6870880221ad?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.waterFeature,
     description: "Minimal water body with waterproof lining, circulation, and edge detailing."
   },
   {
     title: "Industrial Drainage Network",
     category: "Commercial Projects",
     location: "Chakan",
-    image:
-      "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80",
+    image: projectImages.pumpRoom,
     description: "Heavy-duty drainage and water distribution system for an industrial facility."
   }
 ];
