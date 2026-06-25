@@ -22,12 +22,12 @@ export function ServiceCard({ service, detailed = false }: ServiceCardProps) {
             className="object-cover"
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           />
-          <div className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-md bg-white text-aqua shadow-soft">
+          <div className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-md bg-white text-brandBlue shadow-soft">
             <service.icon className="h-5 w-5" />
           </div>
         </div>
         <CardContent className="flex h-full flex-col">
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-aqua">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-brandBlue">
             {service.category}
           </p>
           <h3 className="text-xl font-bold text-navy">{service.title}</h3>
@@ -36,7 +36,7 @@ export function ServiceCard({ service, detailed = false }: ServiceCardProps) {
             <ul className="mt-5 grid gap-2">
               {service.features.map((feature) => (
                 <li key={feature} className="flex items-center gap-2 text-sm font-medium text-slate-700">
-                  <CheckCircle2 className="h-4 w-4 text-aqua" />
+                  <CheckCircle2 className="h-4 w-4 text-brandBlue" />
                   {feature}
                 </li>
               ))}

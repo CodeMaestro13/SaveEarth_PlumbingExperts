@@ -15,16 +15,16 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-green-950/10 bg-white/95 backdrop-blur">
-      <nav className="container flex h-20 items-center justify-between">
-        <Link href="/" className="flex items-center gap-3 focus-ring">
-          <span className="relative h-12 w-40 overflow-hidden rounded-md bg-navy shadow-soft sm:w-52">
+      <nav className="container flex h-20 items-center justify-between gap-4">
+        <Link href="/" className="flex min-w-0 items-center focus-ring">
+          <span className="relative h-12 w-[210px] shrink-0 overflow-hidden rounded-md bg-navy shadow-soft sm:w-[280px] lg:h-14 lg:w-[340px]">
             <Image
               src="/brand/save-earth-plumbing-experts-logo.jpeg"
               alt={`${company.name} logo`}
               fill
               priority
-              className="object-cover"
-              sizes="(min-width: 640px) 208px, 160px"
+              className="object-contain"
+              sizes="(min-width: 1024px) 340px, (min-width: 640px) 280px, 210px"
             />
           </span>
         </Link>

@@ -45,7 +45,7 @@ export default function ContactPage() {
             <div className="grid gap-4">
               {contactCards.map((card) => (
                 <div key={card.label} className="flex gap-4 rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-green-50 text-aqua">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-blue-50 text-brandBlue">
                     <card.icon className="h-6 w-6" />
                   </span>
                   <div>

@@ -29,8 +29,8 @@ export function GalleryFilter() {
             className={cn(
               "rounded-md border border-slate-200 px-4 py-2 text-sm font-bold text-slate-700 transition focus-ring",
               active === category
-                ? "border-aqua bg-aqua text-navy"
-                : "bg-white hover:border-aqua"
+                ? "border-brandBlue bg-brandBlue text-white"
+                : "bg-white hover:border-brandBlue"
             )}
           >
             {category}
@@ -55,7 +55,7 @@ export function GalleryFilter() {
               <div className="absolute inset-0 bg-navy/0 transition group-hover:bg-navy/28" />
             </div>
             <div className="p-5">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-aqua">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-brandBlue">
                 {project.category}
               </p>
               <h3 className="mt-2 text-lg font-bold text-navy">{project.title}</h3>
@@ -91,7 +91,7 @@ export function GalleryFilter() {
               />
             </div>
             <div className="p-6">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-aqua">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-brandBlue">
                 {selected.category}
               </p>
               <h3 className="mt-2 text-2xl font-bold text-navy">{selected.title}</h3>

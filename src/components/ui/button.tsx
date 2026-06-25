@@ -11,7 +11,7 @@ const buttonVariants = cva(
         default: "bg-navy text-white shadow-soft hover:bg-green-950",
         aqua: "bg-aqua text-navy shadow-soft hover:bg-green-300",
         outline:
-          "border border-slate-300 bg-white text-navy hover:border-aqua hover:text-green-800",
+          "border border-slate-300 bg-white text-navy hover:border-brandBlue hover:text-brandBlue",
         ghost: "text-navy hover:bg-green-50",
         white: "bg-white text-navy hover:bg-green-50"
       },

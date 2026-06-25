@@ -61,7 +61,7 @@ export function HeroBackgroundSlider({ slides }: HeroBackgroundSliderProps) {
             aria-label={`Show ${slide.title}`}
             onClick={() => setActive(index)}
             className={`h-2.5 rounded-full transition ${
-              active === index ? "w-9 bg-aqua" : "w-2.5 bg-white/60"
+              active === index ? "w-9 bg-brandBlue" : "w-2.5 bg-white/60"
             }`}
           />
         ))}

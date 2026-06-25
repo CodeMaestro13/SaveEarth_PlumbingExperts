@@ -15,6 +15,8 @@ const config: Config = {
       colors: {
         navy: "hsl(var(--brand-navy))",
         aqua: "hsl(var(--brand-aqua))",
+        brandBlue: "hsl(var(--brand-blue))",
+        steel: "hsl(var(--brand-steel))",
         cloud: "hsl(var(--brand-cloud))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

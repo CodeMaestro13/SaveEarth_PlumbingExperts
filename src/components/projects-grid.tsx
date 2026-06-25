@@ -19,7 +19,7 @@ export function ProjectsGrid() {
               />
             </div>
             <div className="p-6">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-aqua">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-brandBlue">
                 {project.category}
               </p>
               <h3 className="mt-2 text-xl font-bold text-navy">{project.title}</h3>

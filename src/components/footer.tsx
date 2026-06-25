@@ -11,13 +11,13 @@ export function Footer() {
       <div className="container grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <div className="mb-4 flex items-center gap-4">
-            <span className="relative h-14 w-48 overflow-hidden rounded-md bg-black/20 shadow-soft">
+            <span className="relative h-16 w-full max-w-[320px] overflow-hidden rounded-md bg-black/20 shadow-soft">
               <Image
                 src="/brand/save-earth-plumbing-experts-logo.jpeg"
                 alt={`${company.name} logo`}
                 fill
-                className="object-cover"
-                sizes="192px"
+                className="object-contain"
+                sizes="320px"
               />
             </span>
           </div>
@@ -67,15 +67,15 @@ export function Footer() {
           </h3>
           <div className="grid gap-4 text-sm text-slate-300">
             <a href={company.phoneHref} className="flex gap-3 hover:text-aqua">
-              <PhoneCall className="h-5 w-5 shrink-0 text-aqua" />
+              <PhoneCall className="h-5 w-5 shrink-0 text-brandBlue" />
               {company.phone}
             </a>
             <a href={`mailto:${company.email}`} className="flex gap-3 hover:text-aqua">
-              <Mail className="h-5 w-5 shrink-0 text-aqua" />
+              <Mail className="h-5 w-5 shrink-0 text-brandBlue" />
               {company.email}
             </a>
             <p className="flex gap-3">
-              <MapPin className="h-5 w-5 shrink-0 text-aqua" />
+              <MapPin className="h-5 w-5 shrink-0 text-brandBlue" />
               {company.address}
             </p>
           </div>

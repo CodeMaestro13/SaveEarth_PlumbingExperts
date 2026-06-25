@@ -60,7 +60,7 @@ export default function HomePage() {
             {whyChooseUs.map((item, index) => (
               <MotionReveal key={item.title} delay={index * 0.04}>
                 <div className="flex h-full gap-4 rounded-lg border border-slate-200 bg-white p-6 shadow-soft">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-green-50 text-aqua">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-blue-50 text-brandBlue">
                     <item.icon className="h-6 w-6" />
                   </span>
                   <div>
@@ -104,7 +104,7 @@ export default function HomePage() {
                 key={area}
                 className="flex items-center gap-3 rounded-lg border border-slate-200 bg-cloud p-4 font-semibold text-navy"
               >
-                <MapPin className="h-5 w-5 text-aqua" />
+                <MapPin className="h-5 w-5 text-brandBlue" />
                 {area}
               </div>
             ))}
