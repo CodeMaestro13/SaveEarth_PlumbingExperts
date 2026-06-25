@@ -19,13 +19,13 @@ import {
 import type { Faq, NavItem, Project, Service, Stat } from "@/types/site";
 
 export const company = {
-  name: "AquaBuild Engineering",
-  shortName: "AquaBuild",
+  name: "Save Earth Plumbing Experts",
+  shortName: "Save Earth",
   phone: "+91 98765 43210",
   phoneHref: "tel:+919876543210",
   whatsappHref:
-    "https://wa.me/919876543210?text=Hello%20AquaBuild%2C%20I%20would%20like%20to%20request%20a%20site%20inspection.",
-  email: "info@aquabuildengineering.com",
+    "https://wa.me/919876543210?text=Hello%20Save%20Earth%20Plumbing%20Experts%2C%20I%20would%20like%20to%20request%20a%20site%20inspection.",
+  email: "info@saveearthplumbingexperts.com",
   address: "2nd Floor, Meridian Business Park, Pune, Maharashtra 411045",
   hours: "Mon - Sat: 9:00 AM - 7:00 PM"
 };
@@ -379,7 +379,7 @@ export const testimonials = [
     name: "Rohan Mehta",
     role: "Villa Owner, Lonavala",
     quote:
-      "AquaBuild delivered our pool and waterproofing scope with disciplined planning. The finish is excellent and the team kept the site clean throughout."
+      "Save Earth Plumbing Experts delivered our pool and waterproofing scope with disciplined planning. The finish is excellent and the team kept the site clean throughout."
   },
   {
     name: "Priya Nair",
@@ -391,7 +391,7 @@ export const testimonials = [
     name: "Sandeep Kulkarni",
     role: "Builder, Mumbai",
     quote:
-      "We use AquaBuild for waterproofing and plumbing packages because their documentation, manpower, and quality checks are dependable."
+      "We use Save Earth Plumbing Experts for waterproofing and plumbing packages because their documentation, manpower, and quality checks are dependable."
   }
 ];
 

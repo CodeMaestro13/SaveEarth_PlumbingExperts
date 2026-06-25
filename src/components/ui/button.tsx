@@ -8,12 +8,12 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-navy text-white shadow-soft hover:bg-slate-800",
-        aqua: "bg-aqua text-navy shadow-soft hover:bg-cyan-400",
+        default: "bg-navy text-white shadow-soft hover:bg-green-950",
+        aqua: "bg-aqua text-navy shadow-soft hover:bg-green-300",
         outline:
-          "border border-slate-300 bg-white text-navy hover:border-aqua hover:text-cyan-700",
-        ghost: "text-navy hover:bg-slate-100",
-        white: "bg-white text-navy hover:bg-slate-100"
+          "border border-slate-300 bg-white text-navy hover:border-aqua hover:text-green-800",
+        ghost: "text-navy hover:bg-green-50",
+        white: "bg-white text-navy hover:bg-green-50"
       },
       size: {
         default: "h-11",

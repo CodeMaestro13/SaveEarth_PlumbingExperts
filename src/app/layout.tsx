@@ -7,10 +7,10 @@ import { WhatsAppButton } from "@/components/whatsapp-button";
 import { company } from "@/data/site";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://aquabuildengineering.com"),
+  metadataBase: new URL("https://saveearthplumbingexperts.com"),
   title: {
-    default: "AquaBuild Engineering | Plumbing, Waterproofing & Pool Construction",
-    template: "%s | AquaBuild Engineering"
+    default: "Save Earth Plumbing Experts | Plumbing, Waterproofing & Pool Construction",
+    template: "%s | Save Earth Plumbing Experts"
   },
   description:
     "Premium plumbing, waterproofing, swimming pool construction, water body development, leak detection, and maintenance services for homes and businesses.",
@@ -23,17 +23,17 @@ export const metadata: Metadata = {
     "water body development"
   ],
   openGraph: {
-    title: "AquaBuild Engineering",
+    title: "Save Earth Plumbing Experts",
     description:
       "Professional plumbing, waterproofing, swimming pool construction, and water body development services.",
-    url: "https://aquabuildengineering.com",
-    siteName: "AquaBuild Engineering",
+    url: "https://saveearthplumbingexperts.com",
+    siteName: "Save Earth Plumbing Experts",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
+        url: "/brand/save-earth-plumbing-experts-logo.jpeg",
         width: 1200,
         height: 630,
-        alt: "AquaBuild Engineering project site"
+        alt: "Save Earth Plumbing Experts logo"
       }
     ],
     locale: "en_IN",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AquaBuild Engineering",
+    title: "Save Earth Plumbing Experts",
     description:
       "Premium plumbing, waterproofing, pool construction, and water system services."
   }

@@ -16,7 +16,7 @@ export function StatsSection() {
         <MotionReveal delay={0.1} className="grid gap-4 sm:grid-cols-2">
           {trustItems.map((item) => (
             <div key={item.title} className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-4">
-              <span className="flex h-11 w-11 items-center justify-center rounded-md bg-cyan-50 text-aqua">
+              <span className="flex h-11 w-11 items-center justify-center rounded-md bg-green-50 text-aqua">
                 <item.icon className="h-5 w-5" />
               </span>
               <p className="font-bold text-navy">{item.title}</p>

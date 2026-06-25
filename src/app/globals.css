@@ -3,24 +3,26 @@
 @tailwind utilities;
 
 :root {
-  --brand-navy: 222 47% 11%;
-  --brand-aqua: 187 95% 43%;
-  --brand-cloud: 210 40% 98%;
+  --brand-navy: 152 36% 12%;
+  --brand-aqua: 113 33% 53%;
+  --brand-cloud: 120 20% 97%;
+  --brand-steel: 210 8% 50%;
+  --brand-blue: 211 73% 33%;
   --background: 0 0% 100%;
-  --foreground: 222 47% 11%;
+  --foreground: 152 36% 12%;
   --card: 0 0% 100%;
-  --card-foreground: 222 47% 11%;
-  --primary: 222 47% 11%;
+  --card-foreground: 152 36% 12%;
+  --primary: 152 36% 12%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 187 95% 43%;
-  --secondary-foreground: 222 47% 11%;
-  --muted: 210 40% 96%;
-  --muted-foreground: 215 16% 47%;
-  --accent: 187 95% 43%;
+  --secondary: 113 33% 53%;
+  --secondary-foreground: 152 36% 12%;
+  --muted: 120 16% 94%;
+  --muted-foreground: 153 10% 38%;
+  --accent: 113 33% 53%;
   --accent-foreground: 0 0% 100%;
-  --border: 214 32% 91%;
-  --input: 214 32% 91%;
-  --ring: 187 95% 43%;
+  --border: 120 14% 86%;
+  --input: 120 14% 86%;
+  --ring: 113 33% 53%;
 }
 
 * {
@@ -37,7 +39,7 @@ body {
 }
 
 ::selection {
-  background: rgba(6, 182, 212, 0.22);
+  background: rgba(118, 173, 99, 0.24);
 }
 
 .section-padding {

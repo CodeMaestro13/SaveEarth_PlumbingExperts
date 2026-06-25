@@ -9,9 +9,9 @@ import { StatsSection } from "@/components/stats-section";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Learn about AquaBuild Engineering, a specialist plumbing, waterproofing, swimming pool, and water body development company serving premium residential and commercial clients.",
+    "Learn about Save Earth Plumbing Experts, a specialist plumbing, waterproofing, swimming pool, and water body development company serving premium residential and commercial clients.",
   openGraph: {
-    title: "About AquaBuild Engineering",
+    title: "About Save Earth Plumbing Experts",
     description:
       "A disciplined engineering partner for waterproofing, plumbing, pools, and water systems."
   }
@@ -30,7 +30,7 @@ export default function AboutPage() {
       <section className="bg-navy py-20 text-white md:py-28">
         <div className="container">
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-aqua">
-            About AquaBuild
+            About Save Earth
           </p>
           <h1 className="max-w-4xl text-4xl font-black md:text-6xl">
             Premium water infrastructure, waterproofing, and plumbing expertise.
@@ -51,7 +51,7 @@ export default function AboutPage() {
             <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-premium">
               <Image
                 src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80"
-                alt="AquaBuild team inspecting a project site"
+                alt="Save Earth Plumbing Experts team inspecting a project site"
                 fill
                 className="object-cover"
                 sizes="(min-width: 1024px) 50vw, 100vw"

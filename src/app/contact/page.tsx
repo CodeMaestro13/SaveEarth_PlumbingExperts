@@ -7,9 +7,9 @@ import { contactCards } from "@/data/site";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Contact AquaBuild Engineering for plumbing, waterproofing, swimming pool construction, water body development, leak detection, and maintenance quotations.",
+    "Contact Save Earth Plumbing Experts for plumbing, waterproofing, swimming pool construction, water body development, leak detection, and maintenance quotations.",
   openGraph: {
-    title: "Contact AquaBuild Engineering",
+    title: "Contact Save Earth Plumbing Experts",
     description: "Request a free quote or site inspection for your water systems project."
   }
 };
@@ -45,7 +45,7 @@ export default function ContactPage() {
             <div className="grid gap-4">
               {contactCards.map((card) => (
                 <div key={card.label} className="flex gap-4 rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-cyan-50 text-aqua">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-green-50 text-aqua">
                     <card.icon className="h-6 w-6" />
                   </span>
                   <div>

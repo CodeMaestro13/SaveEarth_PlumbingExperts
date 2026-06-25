@@ -78,7 +78,7 @@ export function ContactForm() {
         Submit Enquiry
       </Button>
       {sent ? (
-        <p className="rounded-md bg-cyan-50 px-4 py-3 text-sm font-semibold text-cyan-800">
+        <p className="rounded-md bg-green-50 px-4 py-3 text-sm font-semibold text-green-800">
           Thank you. Your enquiry has been captured for this demo website.
         </p>
       ) : null}

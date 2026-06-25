@@ -1,4 +1,5 @@
 import { Mail, MapPin, PhoneCall } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { company, navItems, services } from "@/data/site";
 
@@ -9,16 +10,16 @@ export function Footer() {
     <footer className="bg-navy text-white">
       <div className="container grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
         <div>
-          <div className="mb-4 flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-md bg-aqua text-lg font-black text-navy">
-              AB
+          <div className="mb-4 flex items-center gap-4">
+            <span className="relative h-14 w-48 overflow-hidden rounded-md bg-black/20 shadow-soft">
+              <Image
+                src="/brand/save-earth-plumbing-experts-logo.jpeg"
+                alt={`${company.name} logo`}
+                fill
+                className="object-cover"
+                sizes="192px"
+              />
             </span>
-            <div>
-              <p className="text-lg font-black">{company.name}</p>
-              <p className="text-xs font-semibold uppercase text-cyan-200">
-                Water Systems Specialists
-              </p>
-            </div>
           </div>
           <p className="leading-7 text-slate-300">
             Premium plumbing, waterproofing, swimming pool, and water feature
@@ -27,7 +28,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-cyan-200">
+          <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-green-200">
             Company
           </h3>
           <div className="grid gap-3">
@@ -44,7 +45,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-cyan-200">
+          <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-green-200">
             Services
           </h3>
           <div className="grid gap-3">
@@ -61,7 +62,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-cyan-200">
+          <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-green-200">
             Contact
           </h3>
           <div className="grid gap-4 text-sm text-slate-300">
@@ -82,7 +83,7 @@ export function Footer() {
       </div>
       <div className="border-t border-white/10 py-5">
         <div className="container flex flex-col gap-2 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
-          <p>Copyright {new Date().getFullYear()} AquaBuild Engineering.</p>
+          <p>Copyright {new Date().getFullYear()} {company.name}.</p>
           <p>Built for reliable water infrastructure and lasting protection.</p>
         </div>
       </div>

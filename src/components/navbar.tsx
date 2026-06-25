@@ -1,6 +1,7 @@
 "use client";
 
 import { Menu, PhoneCall, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -13,19 +14,18 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-green-950/10 bg-white/95 backdrop-blur">
       <nav className="container flex h-20 items-center justify-between">
         <Link href="/" className="flex items-center gap-3 focus-ring">
-          <span className="flex h-11 w-11 items-center justify-center rounded-md bg-navy text-lg font-black text-aqua">
-            AB
-          </span>
-          <span>
-            <span className="block text-lg font-black leading-tight text-navy">
-              {company.shortName}
-            </span>
-            <span className="block text-xs font-semibold uppercase text-slate-500">
-              Engineering
-            </span>
+          <span className="relative h-12 w-40 overflow-hidden rounded-md bg-navy shadow-soft sm:w-52">
+            <Image
+              src="/brand/save-earth-plumbing-experts-logo.jpeg"
+              alt={`${company.name} logo`}
+              fill
+              priority
+              className="object-cover"
+              sizes="(min-width: 640px) 208px, 160px"
+            />
           </span>
         </Link>
 
@@ -35,8 +35,8 @@ export function Navbar() {
               key={item.href}
               href={item.href}
               className={cn(
-                "rounded-md px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 hover:text-navy focus-ring",
-                pathname === item.href && "bg-slate-100 text-navy"
+                "rounded-md px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-green-50 hover:text-navy focus-ring",
+                pathname === item.href && "bg-green-50 text-navy"
               )}
             >
               {item.label}
@@ -66,7 +66,7 @@ export function Navbar() {
       </nav>
 
       {open ? (
-        <div className="border-t border-slate-200 bg-white lg:hidden">
+        <div className="border-t border-green-950/10 bg-white lg:hidden">
           <div className="container grid gap-2 py-4">
             {navItems.map((item) => (
               <Link
@@ -75,7 +75,7 @@ export function Navbar() {
                 onClick={() => setOpen(false)}
                 className={cn(
                   "rounded-md px-3 py-3 text-sm font-semibold text-slate-700 focus-ring",
-                  pathname === item.href && "bg-slate-100 text-navy"
+                  pathname === item.href && "bg-green-50 text-navy"
                 )}
               >
                 {item.label}

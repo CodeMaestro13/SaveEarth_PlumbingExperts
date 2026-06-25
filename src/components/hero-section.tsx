@@ -41,9 +41,9 @@ const backgroundSlides = [
 ];
 
 export function HeroSection({
-  eyebrow = "Engineered water solutions",
+  eyebrow = "Save water. Protect property.",
   title = "Professional Plumbing & Waterproofing Solutions",
-  description = "AquaBuild Engineering delivers premium waterproofing, plumbing, swimming pool construction, and water body development services with disciplined execution and dependable after-service.",
+  description = "Save Earth Plumbing Experts delivers premium waterproofing, plumbing, swimming pool construction, and water body development services with disciplined execution and dependable after-service.",
   image
 }: HeroSectionProps) {
   const slides = image ? [{ title: "Project background", image }] : backgroundSlides;
@@ -53,7 +53,7 @@ export function HeroSection({
       <HeroBackgroundSlider slides={slides} />
       <div className="container relative grid min-h-[calc(100vh-5rem)] items-center gap-10 py-16 md:min-h-[720px] lg:grid-cols-[1.08fr_0.92fr]">
         <MotionReveal>
-          <p className="mb-5 inline-flex rounded-md bg-white/10 px-4 py-2 text-sm font-bold uppercase tracking-[0.18em] text-cyan-200">
+          <p className="mb-5 inline-flex rounded-md bg-white/10 px-4 py-2 text-sm font-bold uppercase tracking-[0.18em] text-green-200">
             {eyebrow}
           </p>
           <h1 className="max-w-4xl text-4xl font-black leading-tight md:text-6xl lg:text-7xl">

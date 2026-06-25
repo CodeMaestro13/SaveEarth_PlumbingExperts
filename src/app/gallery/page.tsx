@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/section-heading";
 export const metadata: Metadata = {
   title: "Projects & Gallery",
   description:
-    "View selected waterproofing, plumbing, swimming pool, water feature, and commercial project work from AquaBuild Engineering.",
+    "View selected waterproofing, plumbing, swimming pool, water feature, and commercial project work from Save Earth Plumbing Experts.",
   openGraph: {
     title: "Projects & Gallery",
     description:
