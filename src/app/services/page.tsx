@@ -1,24 +1,29 @@
 import type { Metadata } from "next";
 import { CheckCircle2 } from "lucide-react";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { CtaSection } from "@/components/cta-section";
 import { SectionHeading } from "@/components/section-heading";
 import { ServiceCard } from "@/components/service-card";
 import { serviceScopes, services } from "@/data/site";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Services",
+export const metadata: Metadata = createPageMetadata({
+  title: "Plumbing, Waterproofing, Pool & Water Body Services",
   description:
     "Explore plumbing works, drainage and sanitary works, pump installation, water tank works, bathroom and kitchen plumbing, waterproofing, swimming pools, fountains, and AMC services.",
-  openGraph: {
-    title: "Plumbing, Waterproofing, Pool & Water Body Services",
-    description:
-      "Detailed professional services for residential, commercial, and industrial properties."
-  }
-};
+  path: "/services",
+  image: "/images/india-projects/indian-terrace-waterproofing.png"
+});
 
 export default function ServicesPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Services", href: "/services" }
+        ]}
+      />
       <section className="bg-navy py-20 text-white md:py-28">
         <div className="container">
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-aqua">

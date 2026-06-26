@@ -1,22 +1,28 @@
 import type { Metadata } from "next";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { ContactForm } from "@/components/contact-form";
 import { CtaSection } from "@/components/cta-section";
 import { SectionHeading } from "@/components/section-heading";
 import { contactCards } from "@/data/site";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact Us",
+export const metadata: Metadata = createPageMetadata({
+  title: "Contact Save Earth Plumbing Experts",
   description:
     "Contact Save Earth Plumbing Experts for plumbing, waterproofing, swimming pool construction, water body development, leak detection, and maintenance quotations.",
-  openGraph: {
-    title: "Contact Save Earth Plumbing Experts",
-    description: "Request a free quote or site inspection for your water systems project."
-  }
-};
+  path: "/contact",
+  image: "/images/india-projects/indian-pump-room-maintenance.png"
+});
 
 export default function ContactPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Contact", href: "/contact" }
+        ]}
+      />
       <section className="bg-navy py-20 text-white md:py-28">
         <div className="container">
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-aqua">

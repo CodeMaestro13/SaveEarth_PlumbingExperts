@@ -1,22 +1,27 @@
 import type { Metadata } from "next";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { CtaSection } from "@/components/cta-section";
 import { GalleryFilter } from "@/components/gallery-filter";
 import { SectionHeading } from "@/components/section-heading";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Projects & Gallery",
+export const metadata: Metadata = createPageMetadata({
+  title: "Plumbing, Waterproofing & Pool Project Gallery",
   description:
     "View selected waterproofing, plumbing, swimming pool, water feature, and commercial project work from Save Earth Plumbing Experts.",
-  openGraph: {
-    title: "Projects & Gallery",
-    description:
-      "Project gallery for waterproofing, plumbing, pools, fountains, and commercial water systems."
-  }
-};
+  path: "/gallery",
+  image: "/images/india-projects/indian-pool-construction.png"
+});
 
 export default function GalleryPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Gallery", href: "/gallery" }
+        ]}
+      />
       <section className="bg-navy py-20 text-white md:py-28">
         <div className="container">
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-aqua">

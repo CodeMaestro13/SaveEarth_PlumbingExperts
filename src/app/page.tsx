@@ -11,17 +11,15 @@ import { StatsSection } from "@/components/stats-section";
 import { TestimonialsSection } from "@/components/testimonials-section";
 import { Button } from "@/components/ui/button";
 import { serviceAreas, services, whyChooseUs } from "@/data/site";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Premium Plumbing, Waterproofing & Pool Construction",
+export const metadata: Metadata = createPageMetadata({
+  title: "Plumbing, Waterproofing & Pool Contractor in Hyderabad",
   description:
-    "Professional plumbing, waterproofing, swimming pool construction, water body development, leak detection, and maintenance services for premium residential and commercial properties.",
-  openGraph: {
-    title: "Premium Plumbing, Waterproofing & Pool Construction",
-    description:
-      "Reliable water systems, waterproofing, pools, fountains, and maintenance services."
-  }
-};
+    "Save Earth Plumbing Experts provides plumbing, waterproofing, swimming pool construction, water body development, leak detection, and maintenance for homes and commercial properties in Hyderabad.",
+  path: "/",
+  image: "/images/india-projects/indian-apartment-plumbing.png"
+});
 
 export default function HomePage() {
   return (
@@ -95,7 +93,7 @@ export default function HomePage() {
             align="left"
             eyebrow="Service areas"
             title="Responsive local execution across major project zones"
-            description="We serve residential, commercial, hospitality, and industrial clients across Maharashtra, Goa, and nearby development corridors."
+            description="We serve residential, commercial, hospitality, and industrial clients across Hyderabad, Secunderabad, and nearby Telangana development corridors."
             className="mb-0"
           />
           <div className="grid gap-3 sm:grid-cols-2">

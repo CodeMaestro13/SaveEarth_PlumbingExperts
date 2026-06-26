@@ -35,7 +35,7 @@ export const company = {
   whatsappHref:
     "https://wa.me/919876543210?text=Hello%20Save%20Earth%20Plumbing%20Experts%2C%20I%20would%20like%20to%20request%20a%20site%20inspection.",
   email: "info@saveearthplumbingexperts.com",
-  address: "2nd Floor, Meridian Business Park, Pune, Maharashtra 411045",
+  address: "Hyderabad, Telangana",
   hours: "Mon - Sat: 9:00 AM - 7:00 PM"
 };
 
@@ -269,7 +269,7 @@ export const featuredProjects: Project[] = [
   {
     title: "Premium Villa Pool & Deck",
     category: "Swimming Pools",
-    location: "Lonavala",
+    location: "Jubilee Hills",
     image: projectImages.poolConstruction,
     description:
       "Turnkey RCC pool, filtration room, waterproofing, lighting, and stone deck for a private weekend home."
@@ -277,7 +277,7 @@ export const featuredProjects: Project[] = [
   {
     title: "Commercial Terrace Waterproofing",
     category: "Waterproofing",
-    location: "Pune",
+    location: "Gachibowli",
     image: projectImages.terraceWaterproofing,
     description:
       "12,000 sq. ft. terrace treatment with crack repair, slope correction, coating system, and flood testing."
@@ -285,7 +285,7 @@ export const featuredProjects: Project[] = [
   {
     title: "Corporate Office Plumbing Upgrade",
     category: "Plumbing",
-    location: "Mumbai",
+    location: "HITEC City",
     image: projectImages.plumbing,
     description:
       "Water supply and drainage upgrade completed floor-wise without interrupting daily business operations."
@@ -297,42 +297,42 @@ export const galleryProjects: Project[] = [
   {
     title: "Apartment Basement Seepage Control",
     category: "Waterproofing",
-    location: "Nashik",
+    location: "Kondapur",
     image: projectImages.bathroomWaterproofing,
     description: "Injection grouting and wall treatment for an occupied residential basement."
   },
   {
     title: "Luxury Courtyard Fountain",
     category: "Water Features",
-    location: "Pune",
+    location: "Banjara Hills",
     image: projectImages.waterFeature,
     description: "Custom fountain with underwater lighting, concealed piping, and automated controls."
   },
   {
     title: "Hotel Pool Maintenance Program",
     category: "Swimming Pools",
-    location: "Goa",
+    location: "Shamshabad",
     image: projectImages.poolConstruction,
     description: "Monthly cleaning, chemical balancing, and equipment inspections for a boutique hotel."
   },
   {
     title: "Retail Complex Pump Room",
     category: "Commercial Projects",
-    location: "Thane",
+    location: "Madhapur",
     image: projectImages.pumpRoom,
     description: "Utility plumbing and pump room works for a high-footfall retail complex."
   },
   {
     title: "Landscape Reflective Pool",
     category: "Water Features",
-    location: "Alibaug",
+    location: "Kokapet",
     image: projectImages.waterFeature,
     description: "Minimal water body with waterproof lining, circulation, and edge detailing."
   },
   {
     title: "Industrial Drainage Network",
     category: "Commercial Projects",
-    location: "Chakan",
+    location: "Patancheru",
     image: projectImages.pumpRoom,
     description: "Heavy-duty drainage and water distribution system for an industrial facility."
   }
@@ -348,34 +348,34 @@ export const whyChooseUs = [
 ];
 
 export const serviceAreas = [
-  "Pune",
-  "Mumbai",
-  "Thane",
-  "Navi Mumbai",
-  "Lonavala",
-  "Nashik",
-  "PCMC",
-  "Alibaug",
-  "Goa",
-  "Industrial MIDC Zones"
+  "Hyderabad",
+  "Secunderabad",
+  "Gachibowli",
+  "HITEC City",
+  "Madhapur",
+  "Kondapur",
+  "Jubilee Hills",
+  "Banjara Hills",
+  "Kokapet",
+  "Patancheru Industrial Area"
 ];
 
 export const testimonials = [
   {
     name: "Rohan Mehta",
-    role: "Villa Owner, Lonavala",
+    role: "Villa Owner, Jubilee Hills",
     quote:
       "Save Earth Plumbing Experts delivered our pool and waterproofing scope with disciplined planning. The finish is excellent and the team kept the site clean throughout."
   },
   {
     name: "Priya Nair",
-    role: "Facility Manager, Pune",
+    role: "Facility Manager, Gachibowli",
     quote:
       "Their leak detection saved us from unnecessary breaking work. The report was clear, the repair was fast, and the seepage has not returned."
   },
   {
     name: "Sandeep Kulkarni",
-    role: "Builder, Mumbai",
+    role: "Builder, Hyderabad",
     quote:
       "We use Save Earth Plumbing Experts for waterproofing and plumbing packages because their documentation, manpower, and quality checks are dependable."
   }
@@ -450,7 +450,7 @@ export const faqs: Faq[] = [
   {
     question: "Which locations do you serve?",
     answer:
-      "We serve Pune, Mumbai, Thane, Navi Mumbai, Lonavala, Nashik, PCMC, Alibaug, Goa, and nearby commercial and industrial zones."
+      "We serve Hyderabad, Secunderabad, Gachibowli, HITEC City, Madhapur, Kondapur, Jubilee Hills, Banjara Hills, Kokapet, Patancheru, and nearby commercial and industrial zones."
   },
   {
     question: "How can I request a quotation?",

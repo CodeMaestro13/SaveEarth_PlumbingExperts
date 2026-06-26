@@ -1,23 +1,44 @@
 import type { Metadata } from "next";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { CtaSection } from "@/components/cta-section";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { SectionHeading } from "@/components/section-heading";
 import { faqs } from "@/data/site";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "FAQ",
+export const metadata: Metadata = createPageMetadata({
+  title: "Frequently Asked Questions",
   description:
     "Answers to common questions about waterproofing, plumbing, leak detection, swimming pool construction, maintenance contracts, warranties, and site inspections.",
-  openGraph: {
-    title: "Frequently Asked Questions",
-    description:
-      "Professional answers about waterproofing, plumbing, pools, leak detection, and maintenance."
-  }
-};
+  path: "/faq"
+});
 
 export default function FaqPage() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer
+      }
+    }))
+  };
+
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "FAQ", href: "/faq" }
+        ]}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <section className="bg-navy py-20 text-white md:py-28">
         <div className="container">
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-aqua">

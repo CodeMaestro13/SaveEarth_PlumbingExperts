@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { BadgeCheck, CheckCircle2 } from "lucide-react";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { CtaSection } from "@/components/cta-section";
 import { MotionReveal } from "@/components/motion-reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { StatsSection } from "@/components/stats-section";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About Us",
+export const metadata: Metadata = createPageMetadata({
+  title: "About Save Earth Plumbing Experts",
   description:
-    "Learn about Save Earth Plumbing Experts, a specialist plumbing, waterproofing, swimming pool, and water body development company serving premium residential and commercial clients.",
-  openGraph: {
-    title: "About Save Earth Plumbing Experts",
-    description:
-      "A disciplined engineering partner for waterproofing, plumbing, pools, and water systems."
-  }
-};
+    "Learn about Save Earth Plumbing Experts, a specialist plumbing, waterproofing, swimming pool, and water body development company serving residential and commercial clients.",
+  path: "/about",
+  image: "/images/india-projects/indian-apartment-plumbing.png"
+});
 
 export default function AboutPage() {
   const values = [
@@ -27,6 +26,12 @@ export default function AboutPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "About", href: "/about" }
+        ]}
+      />
       <section className="bg-navy py-20 text-white md:py-28">
         <div className="container">
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-aqua">

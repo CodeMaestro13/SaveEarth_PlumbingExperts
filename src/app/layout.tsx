@@ -4,36 +4,44 @@ import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { StickyMobileCall } from "@/components/sticky-mobile-call";
 import { WhatsAppButton } from "@/components/whatsapp-button";
-import { company } from "@/data/site";
+import { company, serviceAreas, services } from "@/data/site";
+import { absoluteUrl, logoPath, siteName, siteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://saveearthplumbingexperts.com"),
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Save Earth Plumbing Experts | Plumbing, Waterproofing & Pool Construction",
-    template: "%s | Save Earth Plumbing Experts"
+    default: `${siteName} | Plumbing, Waterproofing & Pool Construction`,
+    template: `%s | ${siteName}`
   },
   description:
-    "Premium plumbing, waterproofing, swimming pool construction, water body development, leak detection, and maintenance services for homes and businesses.",
+    "Save Earth Plumbing Experts provides plumbing, waterproofing, swimming pool construction, water body development, leak detection, and maintenance services across Hyderabad and Telangana.",
   keywords: [
+    "Save Earth Plumbing Experts",
     "plumbing contractor",
+    "plumbing contractor in Hyderabad",
     "waterproofing contractor",
+    "waterproofing contractor in Hyderabad",
     "swimming pool construction",
+    "swimming pool construction in Hyderabad",
     "terrace waterproofing",
     "leak detection",
     "water body development"
   ],
+  alternates: {
+    canonical: "/"
+  },
   openGraph: {
-    title: "Save Earth Plumbing Experts",
+    title: siteName,
     description:
-      "Professional plumbing, waterproofing, swimming pool construction, and water body development services.",
-    url: "https://saveearthplumbingexperts.com",
-    siteName: "Save Earth Plumbing Experts",
+      "Professional plumbing, waterproofing, swimming pool construction, water body development, and maintenance services across Hyderabad and Telangana.",
+    url: siteUrl,
+    siteName,
     images: [
       {
-        url: "/brand/save-earth-plumbing-experts-logo.jpeg",
+        url: logoPath,
         width: 1200,
         height: 630,
-        alt: "Save Earth Plumbing Experts logo"
+        alt: `${siteName} logo`
       }
     ],
     locale: "en_IN",
@@ -41,9 +49,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Save Earth Plumbing Experts",
+    title: siteName,
     description:
-      "Premium plumbing, waterproofing, pool construction, and water system services."
+      "Premium plumbing, waterproofing, pool construction, and water system services.",
+    images: [logoPath]
   }
 };
 
@@ -54,14 +63,58 @@ export default function RootLayout({
 }>) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "Plumber",
+    "@id": absoluteUrl("/#business"),
     name: company.name,
+    url: siteUrl,
+    logo: absoluteUrl(logoPath),
+    image: absoluteUrl(logoPath),
     telephone: company.phone,
     email: company.email,
-    address: company.address,
-    areaServed: "Maharashtra, Goa",
-    serviceType:
-      "Plumbing, Waterproofing, Swimming Pool Construction, Water Body Development"
+    priceRange: "INR",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Hyderabad",
+      addressRegion: "Telangana",
+      addressCountry: "IN"
+    },
+    areaServed: serviceAreas.map((area) => ({
+      "@type": "Place",
+      name: area
+    })),
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        opens: "09:00",
+        closes: "19:00"
+      }
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Plumbing, waterproofing, pool, and water system services",
+      itemListElement: services.map((service) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: service.title,
+          description: service.description,
+          serviceType: service.category,
+          areaServed: "Hyderabad and Telangana"
+        }
+      }))
+    }
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": absoluteUrl("/#website"),
+    name: siteName,
+    url: siteUrl,
+    publisher: {
+      "@id": absoluteUrl("/#business")
+    }
   };
 
   return (
@@ -70,6 +123,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         <Navbar />
         <main>{children}</main>
