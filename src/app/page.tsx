@@ -10,7 +10,8 @@ import { ServiceCard } from "@/components/service-card";
 import { StatsSection } from "@/components/stats-section";
 import { TestimonialsSection } from "@/components/testimonials-section";
 import { Button } from "@/components/ui/button";
-import { serviceAreas, services, whyChooseUs } from "@/data/site";
+import { serviceAreas, whyChooseUs } from "@/data/site";
+import { getPublicProjects, getPublicServices } from "@/lib/content";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -21,7 +22,9 @@ export const metadata: Metadata = createPageMetadata({
   image: "/images/india-projects/indian-apartment-plumbing.png"
 });
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [services, projects] = await Promise.all([getPublicServices(), getPublicProjects()]);
+
   return (
     <>
       <HeroSection />
@@ -81,7 +84,7 @@ export default function HomePage() {
             title="Built for homes, facilities, builders, and premium properties"
             description="A selection of completed work across pool construction, waterproofing, plumbing upgrades, and water system development."
           />
-          <ProjectsGrid />
+          <ProjectsGrid projects={projects} />
         </div>
       </section>
 

@@ -4,25 +4,29 @@ import { X } from "lucide-react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { galleryCategories, galleryProjects } from "@/data/site";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/types/site";
 
-export function GalleryFilter() {
+type GalleryFilterProps = {
+  categories: string[];
+  projects: Project[];
+};
+
+export function GalleryFilter({ categories, projects: allProjects }: GalleryFilterProps) {
   const [active, setActive] = useState("All");
   const [selected, setSelected] = useState<Project | null>(null);
   const projects = useMemo(
     () =>
       active === "All"
-        ? galleryProjects
-        : galleryProjects.filter((project) => project.category === active),
-    [active]
+        ? allProjects
+        : allProjects.filter((project) => project.category === active),
+    [active, allProjects]
   );
 
   return (
     <>
       <div className="mb-8 flex flex-wrap justify-center gap-2">
-        {galleryCategories.map((category) => (
+        {categories.map((category) => (
           <button
             key={category}
             onClick={() => setActive(category)}

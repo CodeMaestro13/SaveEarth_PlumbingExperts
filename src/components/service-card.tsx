@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Service } from "@/types/site";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { getServiceIcon } from "@/lib/icons";
 
 type ServiceCardProps = {
   service: Service;
@@ -11,6 +12,8 @@ type ServiceCardProps = {
 };
 
 export function ServiceCard({ service, detailed = false }: ServiceCardProps) {
+  const Icon = getServiceIcon(service.iconKey, service.icon);
+
   return (
     <div className="h-full transition duration-200 hover:-translate-y-1.5">
       <Card className="h-full overflow-hidden">
@@ -23,7 +26,7 @@ export function ServiceCard({ service, detailed = false }: ServiceCardProps) {
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           />
           <div className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-md bg-white text-brandBlue shadow-soft">
-            <service.icon className="h-5 w-5" />
+            <Icon className="h-5 w-5" />
           </div>
         </div>
         <CardContent className="flex h-full flex-col">

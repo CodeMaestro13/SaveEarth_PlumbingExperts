@@ -13,10 +13,14 @@ export type Stat = {
 export type Service = {
   title: string;
   description: string;
-  icon: LucideIcon;
+  icon?: LucideIcon;
+  iconKey?: string;
   image: string;
   features: string[];
   category: string;
+  slug?: string;
+  sortOrder?: number;
+  isActive?: boolean;
 };
 
 export type Project = {
@@ -25,6 +29,9 @@ export type Project = {
   location: string;
   image: string;
   description: string;
+  slug?: string;
+  sortOrder?: number;
+  isActive?: boolean;
 };
 
 export type Faq = {

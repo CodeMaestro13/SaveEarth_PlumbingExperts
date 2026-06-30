@@ -3,6 +3,7 @@ import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { CtaSection } from "@/components/cta-section";
 import { GalleryFilter } from "@/components/gallery-filter";
 import { SectionHeading } from "@/components/section-heading";
+import { getGalleryCategories, getPublicProjects } from "@/lib/content";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -13,7 +14,9 @@ export const metadata: Metadata = createPageMetadata({
   image: "/images/india-projects/indian-pool-construction.png"
 });
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
+  const [projects, categories] = await Promise.all([getPublicProjects(), getGalleryCategories()]);
+
   return (
     <>
       <BreadcrumbJsonLd
@@ -44,7 +47,7 @@ export default function GalleryPage() {
             title="Filter projects by category"
             description="Every project is planned around the site condition, usage pattern, and long-term maintenance requirement."
           />
-          <GalleryFilter />
+          <GalleryFilter categories={categories} projects={projects} />
         </div>
       </section>
 

@@ -1,12 +1,16 @@
 import Image from "next/image";
 import { MapPin } from "lucide-react";
 import { MotionReveal } from "@/components/motion-reveal";
-import { featuredProjects } from "@/data/site";
+import type { Project } from "@/types/site";
 
-export function ProjectsGrid() {
+type ProjectsGridProps = {
+  projects: Project[];
+};
+
+export function ProjectsGrid({ projects }: ProjectsGridProps) {
   return (
     <div className="grid gap-5 md:grid-cols-3">
-      {featuredProjects.map((project, index) => (
+      {projects.slice(0, 3).map((project, index) => (
         <MotionReveal key={project.title} delay={index * 0.06}>
           <article className="group overflow-hidden rounded-lg border border-slate-200 bg-white shadow-soft">
             <div className="relative aspect-[4/3] overflow-hidden">

@@ -4,7 +4,8 @@ import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { StickyMobileCall } from "@/components/sticky-mobile-call";
 import { WhatsAppButton } from "@/components/whatsapp-button";
-import { company, serviceAreas, services } from "@/data/site";
+import { company, serviceAreas } from "@/data/site";
+import { getPublicServices } from "@/lib/content";
 import { absoluteUrl, logoPath, siteName, siteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -56,11 +57,12 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const services = await getPublicServices();
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Plumber",

@@ -4,7 +4,8 @@ import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { CtaSection } from "@/components/cta-section";
 import { SectionHeading } from "@/components/section-heading";
 import { ServiceCard } from "@/components/service-card";
-import { serviceScopes, services } from "@/data/site";
+import { serviceScopes } from "@/data/site";
+import { getPublicServices } from "@/lib/content";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -15,7 +16,9 @@ export const metadata: Metadata = createPageMetadata({
   image: "/images/india-projects/indian-terrace-waterproofing.png"
 });
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const services = await getPublicServices();
+
   return (
     <>
       <BreadcrumbJsonLd
