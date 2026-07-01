@@ -24,7 +24,7 @@ const allowedImageTypes = new Map([
 const serviceSchema = z.object({
   id: z.coerce.number().int().positive().optional(),
   title: z.string().trim().min(2).max(160),
-  description: z.string().trim().min(10),
+  description: z.string().trim().min(1),
   category: z.string().trim().min(2).max(120),
   iconKey: z.string().trim().min(1).max(60),
   imagePath: z.string().trim().optional(),
@@ -36,7 +36,7 @@ const serviceSchema = z.object({
 const projectSchema = z.object({
   id: z.coerce.number().int().positive().optional(),
   title: z.string().trim().min(2).max(180),
-  description: z.string().trim().min(10),
+  description: z.string().trim().min(1),
   category: z.string().trim().min(2).max(120),
   location: z.string().trim().min(2).max(120),
   imagePath: z.string().trim().optional(),

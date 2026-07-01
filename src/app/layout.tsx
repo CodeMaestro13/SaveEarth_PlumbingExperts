@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
+import { RouteChrome } from "@/components/route-chrome";
 import { StickyMobileCall } from "@/components/sticky-mobile-call";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { company, serviceAreas } from "@/data/site";
@@ -76,6 +77,8 @@ export default async function RootLayout({
     priceRange: "INR",
     address: {
       "@type": "PostalAddress",
+      streetAddress: "4-614, Prem Nagar, New Hafeezpet",
+      postalCode: "500049",
       addressLocality: "Hyderabad",
       addressRegion: "Telangana",
       addressCountry: "IN"
@@ -130,11 +133,19 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <WhatsAppButton />
-        <StickyMobileCall />
+        <RouteChrome
+          publicChrome={
+            <>
+              <Navbar />
+              <main>{children}</main>
+              <Footer />
+              <WhatsAppButton />
+              <StickyMobileCall />
+            </>
+          }
+        >
+          {children}
+        </RouteChrome>
       </body>
     </html>
   );

@@ -30,12 +30,13 @@ const projectImages = {
 export const company = {
   name: "Save Earth Plumbing Experts",
   shortName: "Save Earth",
-  phone: "+91 98765 43210",
-  phoneHref: "tel:+919876543210",
+  contactPerson: "Mr Basha Khadri",
+  phone: "+91 82917 22820",
+  phoneHref: "tel:+918291722820",
   whatsappHref:
-    "https://wa.me/919876543210?text=Hello%20Save%20Earth%20Plumbing%20Experts%2C%20I%20would%20like%20to%20request%20a%20site%20inspection.",
-  email: "info@saveearthplumbingexperts.com",
-  address: "Hyderabad, Telangana",
+    "https://wa.me/918291722820?text=Hello%20Save%20Earth%20Plumbing%20Experts%2C%20I%20would%20like%20to%20request%20a%20site%20inspection.",
+  email: "bashahqadri092@gmail.com",
+  address: "4-614, Prem Nagar, New Hafeezpet, Hyderabad, 500049, Telangana",
   hours: "Mon - Sat: 9:00 AM - 7:00 PM"
 };
 
@@ -469,6 +470,7 @@ export const galleryCategories = [
 ];
 
 export const contactCards = [
+  { label: "Contact Person", value: company.contactPerson, icon: BadgeCheck },
   { label: "Phone", value: company.phone, icon: PhoneCall },
   { label: "Email", value: company.email, icon: Headphones },
   { label: "Office", value: company.address, icon: MapPin },

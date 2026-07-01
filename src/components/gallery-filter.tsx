@@ -56,7 +56,7 @@ export function GalleryFilter({ categories, projects: allProjects }: GalleryFilt
                 className="object-cover transition duration-500 group-hover:scale-105"
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
               />
-              <div className="absolute inset-0 bg-navy/0 transition group-hover:bg-navy/28" />
+              <div className="absolute inset-0 bg-navy/0 transition group-hover:bg-navy/[0.28]" />
             </div>
             <div className="p-5">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-brandBlue">
