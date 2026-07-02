@@ -1,19 +1,55 @@
 "use client";
 
 import { Send } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { services } from "@/data/site";
 
 export function ContactForm() {
-  const [sent, setSent] = useState(false);
+  const router = useRouter();
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   return (
     <form
       className="grid gap-4 rounded-lg border border-slate-200 bg-white p-5 shadow-soft md:p-7"
-      onSubmit={(event) => {
+      onSubmit={async (event) => {
         event.preventDefault();
-        setSent(true);
+        setSubmitting(true);
+        setError("");
+
+        const formData = new FormData(event.currentTarget);
+
+        try {
+          const response = await fetch("/api/leads", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              name: formData.get("name"),
+              phone: formData.get("phone"),
+              email: formData.get("email"),
+              service: formData.get("service"),
+              message: formData.get("message"),
+              source: "contact",
+              pagePath: window.location.pathname
+            })
+          });
+
+          if (!response.ok) {
+            const result = await response.json().catch(() => null);
+            setError(result?.error || "Something went wrong. Please try again.");
+            setSubmitting(false);
+            return;
+          }
+
+          router.push("/thank-you");
+        } catch {
+          setError("Network error. Please check your connection and try again.");
+          setSubmitting(false);
+        }
       }}
     >
       <div className="grid gap-4 sm:grid-cols-2">
@@ -73,13 +109,13 @@ export function ContactForm() {
           placeholder="Tell us about the site, issue, or project scope."
         />
       </label>
-      <Button type="submit" variant="aqua" size="lg">
+      <Button type="submit" variant="aqua" size="lg" disabled={submitting}>
         <Send className="h-5 w-5" />
-        Submit Enquiry
+        {submitting ? "Submitting..." : "Submit Enquiry"}
       </Button>
-      {sent ? (
-        <p className="rounded-md bg-green-50 px-4 py-3 text-sm font-semibold text-green-800">
-          Thank you. Your enquiry has been captured for this demo website.
+      {error ? (
+        <p className="rounded-md bg-red-50 px-4 py-3 text-sm font-semibold text-red-800">
+          {error}
         </p>
       ) : null}
     </form>

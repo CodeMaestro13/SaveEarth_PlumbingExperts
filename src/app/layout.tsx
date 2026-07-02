@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import "./globals.css";
 import { Footer } from "@/components/footer";
+import { EnquiryPopup } from "@/components/enquiry-popup";
 import { Navbar } from "@/components/navbar";
 import { RouteChrome } from "@/components/route-chrome";
 import { StickyMobileCall } from "@/components/sticky-mobile-call";
@@ -32,6 +34,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/"
   },
+  icons: {
+    icon: [
+      { url: "/brand/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/brand/save-earth-icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/brand/save-earth-icon-512.png", sizes: "512x512", type: "image/png" }
+    ],
+    shortcut: [{ url: "/brand/favicon-32.png", sizes: "32x32", type: "image/png" }],
+    apple: [{ url: "/brand/apple-touch-icon.png", sizes: "180x180", type: "image/png" }]
+  },
   openGraph: {
     title: siteName,
     description:
@@ -61,7 +72,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   const services = await getPublicServices();
   const jsonLd = {
@@ -139,6 +150,7 @@ export default async function RootLayout({
               <Navbar />
               <main>{children}</main>
               <Footer />
+              <EnquiryPopup />
               <WhatsAppButton />
               <StickyMobileCall />
             </>

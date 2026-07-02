@@ -3,6 +3,7 @@ import mysql from "mysql2/promise";
 type GlobalWithMysql = typeof globalThis & {
   mysqlPool?: mysql.Pool;
   contentTablesReady?: boolean;
+  leadTablesReady?: boolean;
 };
 
 const requiredEnv = ["DB_HOST", "DB_NAME", "DB_USER", "DB_PASSWORD"] as const;
@@ -87,5 +88,40 @@ export async function ensureContentTables() {
   `);
 
   globalForMysql.contentTablesReady = true;
+  return true;
+}
+
+export async function ensureLeadTables() {
+  const pool = getPool();
+
+  if (!pool) {
+    return false;
+  }
+
+  const globalForMysql = globalThis as GlobalWithMysql;
+
+  if (globalForMysql.leadTablesReady) {
+    return true;
+  }
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS leads (
+      id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      name VARCHAR(160) NOT NULL,
+      phone VARCHAR(40) NOT NULL,
+      email VARCHAR(180) NULL,
+      service VARCHAR(180) NULL,
+      message TEXT NOT NULL,
+      source ENUM('popup', 'contact') NOT NULL DEFAULT 'contact',
+      page_path VARCHAR(255) NULL,
+      user_agent VARCHAR(500) NULL,
+      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (id),
+      KEY leads_created_at_idx (created_at),
+      KEY leads_source_idx (source)
+    )
+  `);
+
+  globalForMysql.leadTablesReady = true;
   return true;
 }
