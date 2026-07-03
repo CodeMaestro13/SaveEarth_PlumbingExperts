@@ -15,8 +15,8 @@ export function ServiceCard({ service, detailed = false }: ServiceCardProps) {
   const Icon = getServiceIcon(service.iconKey, service.icon);
 
   return (
-    <div className="h-full transition duration-200 hover:-translate-y-1.5">
-      <Card className="h-full overflow-hidden">
+    <div className="transition duration-200 hover:-translate-y-1.5">
+      <Card className="overflow-hidden">
         <div className="relative aspect-[16/10]">
           <Image
             src={service.image}
