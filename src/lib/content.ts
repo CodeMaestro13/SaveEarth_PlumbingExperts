@@ -9,6 +9,17 @@ export type AdminService = Service & {
   updatedAt?: Date;
 };
 
+export type AdminServiceCategory = {
+  id: number;
+  name: string;
+  slug: string;
+  description?: string;
+  sortOrder: number;
+  isActive: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
 export type AdminProject = Project & {
   id: number;
   createdAt?: Date;
@@ -38,6 +49,17 @@ type ProjectRow = RowDataPacket & {
   location: string;
   description: string;
   image_path: string;
+  sort_order: number;
+  is_active: number;
+  created_at?: Date;
+  updated_at?: Date;
+};
+
+type ServiceCategoryRow = RowDataPacket & {
+  id: number;
+  name: string;
+  slug: string;
+  description: string;
   sort_order: number;
   is_active: number;
   created_at?: Date;
@@ -90,6 +112,19 @@ function mapProject(row: ProjectRow): AdminProject {
   };
 }
 
+function mapServiceCategory(row: ServiceCategoryRow): AdminServiceCategory {
+  return {
+    id: row.id,
+    name: row.name,
+    slug: row.slug,
+    description: row.description || undefined,
+    sortOrder: row.sort_order,
+    isActive: Boolean(row.is_active),
+    createdAt: row.created_at,
+    updatedAt: row.updated_at
+  };
+}
+
 export async function getPublicServices(): Promise<Service[]> {
   try {
     const ready = await ensureContentTables();
@@ -122,6 +157,60 @@ export async function getAdminServices(): Promise<AdminService[]> {
   );
 
   return rows.map(mapService);
+}
+
+export async function getPublicServiceCategories(): Promise<AdminServiceCategory[]> {
+  try {
+    const ready = await ensureContentTables();
+    const pool = getPool();
+
+    if (!ready || !pool) {
+      return Array.from(new Set(fallbackServices.map((service) => service.category))).map((name, index) => ({
+        id: index + 1,
+        name,
+        slug: name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+        sortOrder: index,
+        isActive: true
+      }));
+    }
+
+    const [rows] = await pool.query<ServiceCategoryRow[]>(
+      "SELECT * FROM service_categories WHERE is_active = 1 ORDER BY sort_order ASC, id DESC"
+    );
+
+    return rows.length
+      ? rows.map(mapServiceCategory)
+      : Array.from(new Set(fallbackServices.map((service) => service.category))).map((name, index) => ({
+          id: index + 1,
+          name,
+          slug: name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+          sortOrder: index,
+          isActive: true
+        }));
+  } catch {
+    return Array.from(new Set(fallbackServices.map((service) => service.category))).map((name, index) => ({
+      id: index + 1,
+      name,
+      slug: name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+      sortOrder: index,
+      isActive: true
+    }));
+  }
+}
+
+export async function getAdminServiceCategories(): Promise<AdminServiceCategory[]> {
+  const ready = await ensureContentTables();
+  const pool = getPool();
+
+  if (!ready || !pool) {
+    return [];
+  }
+
+  const [rows] = await pool.query<ServiceCategoryRow[]>(
+    "SELECT * FROM service_categories ORDER BY sort_order ASC, id DESC"
+  );
+
+  return rows.map(mapServiceCategory);
 }
 
 export async function getPublicProjects(): Promise<Project[]> {

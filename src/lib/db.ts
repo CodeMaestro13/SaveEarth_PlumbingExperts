@@ -69,6 +69,39 @@ export async function ensureContentTables() {
   `);
 
   await pool.query(`
+    CREATE TABLE IF NOT EXISTS service_categories (
+      id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      name VARCHAR(120) NOT NULL,
+      slug VARCHAR(140) NOT NULL,
+      description TEXT NULL,
+      sort_order INT NOT NULL DEFAULT 0,
+      is_active TINYINT(1) NOT NULL DEFAULT 1,
+      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      PRIMARY KEY (id),
+      UNIQUE KEY service_categories_slug_unique (slug),
+      KEY service_categories_public_idx (is_active, sort_order)
+    )
+  `);
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS categories (
+      id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+      name VARCHAR(120) NOT NULL,
+      slug VARCHAR(140) NOT NULL,
+      description TEXT NULL,
+      image_path VARCHAR(255) NULL,
+      sort_order INT NOT NULL DEFAULT 0,
+      is_active TINYINT(1) NOT NULL DEFAULT 1,
+      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      PRIMARY KEY (id),
+      UNIQUE KEY categories_slug_unique (slug),
+      KEY categories_public_idx (is_active, sort_order)
+    )
+  `);
+
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS gallery_projects (
       id INT UNSIGNED NOT NULL AUTO_INCREMENT,
       title VARCHAR(180) NOT NULL,

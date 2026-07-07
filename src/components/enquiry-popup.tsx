@@ -1,10 +1,17 @@
 "use client";
 
-import { MessageCircle, PhoneCall, Send, X } from "lucide-react";
+import { Check, ChevronDown, MessageCircle, PhoneCall, Send, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { company, services } from "@/data/site";
+import { company } from "@/data/site";
+
+type PopupServiceOption = {
+  id?: number;
+  title: string;
+  slug?: string;
+  category?: string;
+};
 
 export function EnquiryPopup() {
   const router = useRouter();
@@ -12,6 +19,11 @@ export function EnquiryPopup() {
   const [open, setOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [services, setServices] = useState<PopupServiceOption[]>([]);
+  const [loadingServices, setLoadingServices] = useState(true);
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const closePopup = () => {
     setOpen(false);
@@ -28,6 +40,48 @@ export function EnquiryPopup() {
 
     return () => window.clearTimeout(timer);
   }, [pathname]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadServices() {
+      try {
+        const response = await fetch("/api/services", { cache: "no-store" });
+        const result = await response.json().catch(() => null);
+
+        if (!isMounted) {
+          return;
+        }
+
+        const options = Array.isArray(result?.services)
+          ? result.services.map((service: PopupServiceOption) => ({
+              id: service.id,
+              title: service.title,
+              slug: service.slug,
+              category: service.category
+            }))
+          : [];
+
+        setServices(options);
+      } catch {
+        if (isMounted) {
+          setServices([]);
+        }
+      } finally {
+        if (isMounted) {
+          setLoadingServices(false);
+        }
+      }
+    }
+
+    if (open) {
+      loadServices();
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [open]);
 
   useEffect(() => {
     if (!open) {
@@ -48,6 +102,17 @@ export function EnquiryPopup() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [open]);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   if (!open) {
     return null;
@@ -107,7 +172,7 @@ export function EnquiryPopup() {
                 body: JSON.stringify({
                   name: formData.get("name"),
                   phone: formData.get("phone"),
-                  service: formData.get("service"),
+                  service: selectedServices.join(", "),
                   message: formData.get("message"),
                   source: "popup",
                   pagePath: window.location.pathname
@@ -152,23 +217,52 @@ export function EnquiryPopup() {
             </label>
           </div>
 
-          <label className="grid gap-2 text-sm font-semibold text-navy">
-            Service Required
-            <select
-              name="service"
-              className="h-12 rounded-md border border-slate-300 bg-white px-4 text-sm font-normal focus-ring"
-              defaultValue=""
+          <div className="grid gap-2 text-sm font-semibold text-navy" ref={dropdownRef}>
+            <span>Service Required</span>
+            <button
+              type="button"
+              className="flex min-h-12 items-center justify-between rounded-md border border-slate-300 bg-white px-4 py-3 text-left text-sm font-normal text-slate-700 focus-ring"
+              onClick={() => setDropdownOpen((current) => !current)}
+              disabled={loadingServices}
             >
-              <option value="" disabled>
-                Select a service
-              </option>
-              {services.map((service) => (
-                <option key={service.title} value={service.title}>
-                  {service.title}
-                </option>
-              ))}
-            </select>
-          </label>
+              <span className={selectedServices.length ? "text-slate-800" : "text-slate-500"}>
+                {selectedServices.length ? selectedServices.join(", ") : "Select services"}
+              </span>
+              <ChevronDown className={`h-4 w-4 transition ${dropdownOpen ? "rotate-180" : ""}`} />
+            </button>
+
+            {dropdownOpen ? (
+              <div className="rounded-md border border-slate-200 bg-white p-2 shadow-soft">
+                {loadingServices ? (
+                  <p className="px-2 py-2 text-sm font-normal text-slate-500">Loading services...</p>
+                ) : services.length ? (
+                  services.map((service) => {
+                    const checked = selectedServices.includes(service.title);
+
+                    return (
+                      <label key={service.id ?? service.title} className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-sm font-normal text-slate-700 hover:bg-slate-50">
+                        <input
+                          type="checkbox"
+                          checked={checked}
+                          onChange={() => {
+                            setSelectedServices((current) =>
+                              current.includes(service.title)
+                                ? current.filter((item) => item !== service.title)
+                                : [...current, service.title]
+                            );
+                          }}
+                        />
+                        <span>{service.title}</span>
+                        {checked ? <Check className="ml-auto h-4 w-4 text-brandBlue" /> : null}
+                      </label>
+                    );
+                  })
+                ) : (
+                  <p className="px-2 py-2 text-sm font-normal text-slate-500">No services available.</p>
+                )}
+              </div>
+            ) : null}
+          </div>
 
           <label className="grid gap-2 text-sm font-semibold text-navy">
             Message

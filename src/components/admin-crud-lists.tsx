@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Pencil, Trash2, X } from "lucide-react";
 import { useState } from "react";
 import type { ReactNode } from "react";
-import type { AdminProject, AdminService } from "@/lib/content";
+import type { AdminProject, AdminService, AdminServiceCategory } from "@/lib/content";
 import { serviceIconOptions } from "@/lib/icons";
 
 type ServerAction = (formData: FormData) => void | Promise<void>;
@@ -35,7 +35,7 @@ function Modal({ title, children, onClose }: { title: string; children: ReactNod
   );
 }
 
-function ServiceFields({ service }: { service: AdminService }) {
+function ServiceFields({ service, categories }: { service: AdminService; categories: AdminServiceCategory[] }) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <input type="hidden" name="id" value={service.id} />
@@ -46,7 +46,20 @@ function ServiceFields({ service }: { service: AdminService }) {
       </label>
       <label className={labelClass}>
         Category
-        <input name="category" required defaultValue={service.category} className={inputClass} />
+        {categories.length ? (
+          <select name="category" required defaultValue={service.category ?? ""} className={inputClass}>
+            <option value="" disabled>
+              Select a category
+            </option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.name}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <input name="category" required defaultValue={service.category} className={inputClass} />
+        )}
       </label>
       <label className={labelClass}>
         Icon
@@ -127,10 +140,12 @@ function ProjectFields({ project }: { project: AdminProject }) {
 
 export function AdminServicesList({
   services,
+  categories,
   updateAction,
   deleteAction
 }: {
   services: AdminService[];
+  categories: AdminServiceCategory[];
   updateAction: ServerAction;
   deleteAction: ServerAction;
 }) {
@@ -180,7 +195,7 @@ export function AdminServicesList({
       {editing ? (
         <Modal title={`Edit ${editing.title}`} onClose={() => setEditing(null)}>
           <form action={updateAction}>
-            <ServiceFields service={editing} />
+            <ServiceFields service={editing} categories={categories} />
             <button type="submit" className="mt-5 rounded-md bg-navy px-5 py-3 font-bold text-white transition hover:bg-brandBlue">
               Save Changes
             </button>

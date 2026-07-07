@@ -33,6 +33,14 @@ const serviceSchema = z.object({
   isActive: z.boolean().default(false)
 });
 
+const categorySchema = z.object({
+  id: z.coerce.number().int().positive().optional(),
+  name: z.string().trim().min(2).max(120),
+  description: z.string().trim().optional(),
+  sortOrder: z.coerce.number().int().default(0),
+  isActive: z.boolean().default(false)
+});
+
 const projectSchema = z.object({
   id: z.coerce.number().int().positive().optional(),
   title: z.string().trim().min(2).max(180),
@@ -204,6 +212,61 @@ export async function deleteServiceAction(formData: FormData) {
   const id = z.coerce.number().int().positive().parse(formData.get("id"));
 
   await pool.query("DELETE FROM services WHERE id = ?", [id]);
+
+  revalidatePath("/");
+  revalidatePath("/services");
+  redirect("/admin/services");
+}
+
+export async function createServiceCategoryAction(formData: FormData) {
+  const pool = await requirePool();
+  const data = categorySchema.parse({
+    name: formData.get("name"),
+    description: formData.get("description"),
+    sortOrder: formData.get("sortOrder"),
+    isActive: formData.get("isActive") === "on"
+  });
+  const slug = slugify(data.name);
+
+  await pool.query(
+    `INSERT INTO categories (name, slug, description, sort_order, is_active)
+     VALUES (?, ?, ?, ?, ?)`,
+    [data.name, slug, data.description || null, data.sortOrder, data.isActive ? 1 : 0]
+  );
+
+  revalidatePath("/");
+  revalidatePath("/services");
+  redirect("/admin/services");
+}
+
+export async function updateServiceCategoryAction(formData: FormData) {
+  const pool = await requirePool();
+  const data = categorySchema.required({ id: true }).parse({
+    id: formData.get("id"),
+    name: formData.get("name"),
+    description: formData.get("description"),
+    sortOrder: formData.get("sortOrder"),
+    isActive: formData.get("isActive") === "on"
+  });
+  const slug = slugify(data.name);
+
+  await pool.query(
+    `UPDATE categories
+     SET name = ?, slug = ?, description = ?, sort_order = ?, is_active = ?
+     WHERE id = ?`,
+    [data.name, slug, data.description || null, data.sortOrder, data.isActive ? 1 : 0, data.id]
+  );
+
+  revalidatePath("/");
+  revalidatePath("/services");
+  redirect("/admin/services");
+}
+
+export async function deleteServiceCategoryAction(formData: FormData) {
+  const pool = await requirePool();
+  const id = z.coerce.number().int().positive().parse(formData.get("id"));
+
+  await pool.query("DELETE FROM categories WHERE id = ?", [id]);
 
   revalidatePath("/");
   revalidatePath("/services");
