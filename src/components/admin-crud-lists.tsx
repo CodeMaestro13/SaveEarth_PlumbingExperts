@@ -5,6 +5,7 @@ import { Pencil, Trash2, X } from "lucide-react";
 import { useState } from "react";
 import type { ReactNode } from "react";
 import type { AdminProject, AdminService, AdminServiceCategory } from "@/lib/content";
+import { CategorySelectField } from "@/components/category-select-field";
 import { serviceIconOptions } from "@/lib/icons";
 
 type ServerAction = (formData: FormData) => void | Promise<void>;
@@ -35,7 +36,19 @@ function Modal({ title, children, onClose }: { title: string; children: ReactNod
   );
 }
 
-function ServiceFields({ service, categories }: { service: AdminService; categories: AdminServiceCategory[] }) {
+function ServiceFields({
+  service,
+  categories,
+  createCategoryAction,
+  updateCategoryAction,
+  deleteCategoryAction
+}: {
+  service: AdminService;
+  categories: AdminServiceCategory[];
+  createCategoryAction: ServerAction;
+  updateCategoryAction?: ServerAction;
+  deleteCategoryAction?: ServerAction;
+}) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <input type="hidden" name="id" value={service.id} />
@@ -44,23 +57,22 @@ function ServiceFields({ service, categories }: { service: AdminService; categor
         Title
         <input name="title" required defaultValue={service.title} className={inputClass} />
       </label>
-      <label className={labelClass}>
-        Category
-        {categories.length ? (
-          <select name="category" required defaultValue={service.category ?? ""} className={inputClass}>
-            <option value="" disabled>
-              Select a category
-            </option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.name}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-        ) : (
+      {categories.length ? (
+        <CategorySelectField
+          categories={categories}
+          defaultValue={service.category ?? ""}
+          createCategoryAction={createCategoryAction}
+          updateCategoryAction={updateCategoryAction}
+          deleteCategoryAction={deleteCategoryAction}
+          name="category"
+          label="Category"
+        />
+      ) : (
+        <label className={labelClass}>
+          Category
           <input name="category" required defaultValue={service.category} className={inputClass} />
-        )}
-      </label>
+        </label>
+      )}
       <label className={labelClass}>
         Icon
         <select name="iconKey" defaultValue={service.iconKey ?? "wrench"} className={inputClass}>
@@ -101,7 +113,19 @@ function ServiceFields({ service, categories }: { service: AdminService; categor
   );
 }
 
-function ProjectFields({ project }: { project: AdminProject }) {
+function ProjectFields({
+  project,
+  categories,
+  createCategoryAction,
+  updateCategoryAction,
+  deleteCategoryAction
+}: {
+  project: AdminProject;
+  categories: AdminServiceCategory[];
+  createCategoryAction: ServerAction;
+  updateCategoryAction?: ServerAction;
+  deleteCategoryAction?: ServerAction;
+}) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <input type="hidden" name="id" value={project.id} />
@@ -110,10 +134,22 @@ function ProjectFields({ project }: { project: AdminProject }) {
         Title
         <input name="title" required defaultValue={project.title} className={inputClass} />
       </label>
-      <label className={labelClass}>
-        Category
-        <input name="category" required defaultValue={project.category} className={inputClass} />
-      </label>
+      {categories.length ? (
+        <CategorySelectField
+          categories={categories}
+          defaultValue={project.category ?? ""}
+          createCategoryAction={createCategoryAction}
+          updateCategoryAction={updateCategoryAction}
+          deleteCategoryAction={deleteCategoryAction}
+          name="category"
+          label="Category"
+        />
+      ) : (
+        <label className={labelClass}>
+          Category
+          <input name="category" required defaultValue={project.category} className={inputClass} />
+        </label>
+      )}
       <label className={labelClass}>
         Location
         <input name="location" required defaultValue={project.location} className={inputClass} />
@@ -142,12 +178,18 @@ export function AdminServicesList({
   services,
   categories,
   updateAction,
-  deleteAction
+  deleteAction,
+  createCategoryAction,
+  updateCategoryAction,
+  deleteCategoryAction
 }: {
   services: AdminService[];
   categories: AdminServiceCategory[];
   updateAction: ServerAction;
   deleteAction: ServerAction;
+  createCategoryAction: ServerAction;
+  updateCategoryAction?: ServerAction;
+  deleteCategoryAction?: ServerAction;
 }) {
   const [editing, setEditing] = useState<AdminService | null>(null);
   const [deleting, setDeleting] = useState<AdminService | null>(null);
@@ -195,7 +237,13 @@ export function AdminServicesList({
       {editing ? (
         <Modal title={`Edit ${editing.title}`} onClose={() => setEditing(null)}>
           <form action={updateAction}>
-            <ServiceFields service={editing} categories={categories} />
+            <ServiceFields
+              service={editing}
+              categories={categories}
+              createCategoryAction={createCategoryAction}
+              updateCategoryAction={updateCategoryAction}
+              deleteCategoryAction={deleteCategoryAction}
+            />
             <button type="submit" className="mt-5 rounded-md bg-navy px-5 py-3 font-bold text-white transition hover:bg-brandBlue">
               Save Changes
             </button>
@@ -229,12 +277,20 @@ export function AdminServicesList({
 
 export function AdminProjectsList({
   projects,
+  categories,
   updateAction,
-  deleteAction
+  deleteAction,
+  createCategoryAction,
+  updateCategoryAction,
+  deleteCategoryAction
 }: {
   projects: AdminProject[];
+  categories: AdminServiceCategory[];
   updateAction: ServerAction;
   deleteAction: ServerAction;
+  createCategoryAction: ServerAction;
+  updateCategoryAction?: ServerAction;
+  deleteCategoryAction?: ServerAction;
 }) {
   const [editing, setEditing] = useState<AdminProject | null>(null);
   const [deleting, setDeleting] = useState<AdminProject | null>(null);
@@ -282,7 +338,13 @@ export function AdminProjectsList({
       {editing ? (
         <Modal title={`Edit ${editing.title}`} onClose={() => setEditing(null)}>
           <form action={updateAction}>
-            <ProjectFields project={editing} />
+            <ProjectFields
+              project={editing}
+              categories={categories}
+              createCategoryAction={createCategoryAction}
+              updateCategoryAction={updateCategoryAction}
+              deleteCategoryAction={deleteCategoryAction}
+            />
             <button type="submit" className="mt-5 rounded-md bg-navy px-5 py-3 font-bold text-white transition hover:bg-brandBlue">
               Save Changes
             </button>

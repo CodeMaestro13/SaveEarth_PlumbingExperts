@@ -61,6 +61,32 @@ function slugify(value: string) {
   return slug || `item-${Date.now()}`;
 }
 
+async function resolveUniqueSlug(pool: any, baseSlug: string, excludeId?: number) {
+  let slug = baseSlug;
+  let suffix = 2;
+
+  while (true) {
+    const categoryQuery = excludeId
+      ? "SELECT COUNT(*) AS count FROM categories WHERE slug = ? AND id != ?"
+      : "SELECT COUNT(*) AS count FROM categories WHERE slug = ?";
+    const [categoryRows] = await pool.query(categoryQuery, excludeId ? [slug, excludeId] : [slug]);
+    const categoryCount = (categoryRows as Array<{ count: number }>)[0]?.count ?? 0;
+
+    const serviceCategoryQuery = excludeId
+      ? "SELECT COUNT(*) AS count FROM service_categories WHERE slug = ? AND id != ?"
+      : "SELECT COUNT(*) AS count FROM service_categories WHERE slug = ?";
+    const [serviceCategoryRows] = await pool.query(serviceCategoryQuery, excludeId ? [slug, excludeId] : [slug]);
+    const serviceCategoryCount = (serviceCategoryRows as Array<{ count: number }>)[0]?.count ?? 0;
+
+    if (categoryCount === 0 && serviceCategoryCount === 0) {
+      return slug;
+    }
+
+    slug = `${baseSlug}-${suffix}`;
+    suffix += 1;
+  }
+}
+
 function textListToJson(value?: string) {
   return JSON.stringify(
     (value ?? "")
@@ -226,10 +252,17 @@ export async function createServiceCategoryAction(formData: FormData) {
     sortOrder: formData.get("sortOrder"),
     isActive: formData.get("isActive") === "on"
   });
-  const slug = slugify(data.name);
+  const baseSlug = slugify(data.name);
+  const slug = await resolveUniqueSlug(pool, baseSlug);
 
   await pool.query(
     `INSERT INTO categories (name, slug, description, sort_order, is_active)
+     VALUES (?, ?, ?, ?, ?)`,
+    [data.name, slug, data.description || null, data.sortOrder, data.isActive ? 1 : 0]
+  );
+
+  await pool.query(
+    `INSERT INTO service_categories (name, slug, description, sort_order, is_active)
      VALUES (?, ?, ?, ?, ?)`,
     [data.name, slug, data.description || null, data.sortOrder, data.isActive ? 1 : 0]
   );
@@ -248,10 +281,18 @@ export async function updateServiceCategoryAction(formData: FormData) {
     sortOrder: formData.get("sortOrder"),
     isActive: formData.get("isActive") === "on"
   });
-  const slug = slugify(data.name);
+  const baseSlug = slugify(data.name);
+  const slug = await resolveUniqueSlug(pool, baseSlug, data.id);
 
   await pool.query(
     `UPDATE categories
+     SET name = ?, slug = ?, description = ?, sort_order = ?, is_active = ?
+     WHERE id = ?`,
+    [data.name, slug, data.description || null, data.sortOrder, data.isActive ? 1 : 0, data.id]
+  );
+
+  await pool.query(
+    `UPDATE service_categories
      SET name = ?, slug = ?, description = ?, sort_order = ?, is_active = ?
      WHERE id = ?`,
     [data.name, slug, data.description || null, data.sortOrder, data.isActive ? 1 : 0, data.id]
@@ -267,6 +308,7 @@ export async function deleteServiceCategoryAction(formData: FormData) {
   const id = z.coerce.number().int().positive().parse(formData.get("id"));
 
   await pool.query("DELETE FROM categories WHERE id = ?", [id]);
+  await pool.query("DELETE FROM service_categories WHERE id = ?", [id]);
 
   revalidatePath("/");
   revalidatePath("/services");

@@ -1,20 +1,24 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { AdminProjectsList } from "@/components/admin-crud-lists";
+import { CategorySelectField } from "@/components/category-select-field";
 import {
   createProjectAction,
+  createServiceCategoryAction,
   deleteProjectAction,
-  updateProjectAction
+  deleteServiceCategoryAction,
+  updateProjectAction,
+  updateServiceCategoryAction
 } from "@/lib/admin-actions";
 import { requireAdmin } from "@/lib/admin-auth";
-import { getAdminProjects, type AdminProject } from "@/lib/content";
+import { getAdminProjects, getAdminServiceCategories, type AdminProject, type AdminServiceCategory } from "@/lib/content";
 import { hasDatabaseConfig } from "@/lib/db";
 
 const inputClass =
   "mt-2 w-full rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-800 outline-none focus:border-brandBlue";
 const labelClass = "block text-sm font-bold text-navy";
 
-function ProjectFields() {
+function ProjectFields({ categories }: { categories: AdminServiceCategory[] }) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <input type="hidden" name="imagePath" value="" />
@@ -22,10 +26,21 @@ function ProjectFields() {
         Title
         <input name="title" required className={inputClass} />
       </label>
-      <label className={labelClass}>
-        Category
-        <input name="category" required className={inputClass} />
-      </label>
+      {categories.length ? (
+        <CategorySelectField
+          categories={categories}
+          createCategoryAction={createServiceCategoryAction}
+          updateCategoryAction={updateServiceCategoryAction}
+          deleteCategoryAction={deleteServiceCategoryAction}
+          name="category"
+          label="Category"
+        />
+      ) : (
+        <label className={labelClass}>
+          Category
+          <input name="category" required className={inputClass} />
+        </label>
+      )}
       <label className={labelClass}>
         Location
         <input name="location" required className={inputClass} />
@@ -54,10 +69,12 @@ export default async function AdminGalleryPage() {
   await requireAdmin();
 
   let projects: AdminProject[] = [];
+  let categories: AdminServiceCategory[] = [];
   let loadError = false;
 
   try {
     projects = await getAdminProjects();
+    categories = await getAdminServiceCategories();
   } catch {
     loadError = true;
   }
@@ -84,7 +101,7 @@ export default async function AdminGalleryPage() {
         <section className="mt-8 rounded-lg border border-slate-200 bg-white p-6 shadow-soft">
           <h2 className="text-2xl font-black text-navy">Add New Gallery Project</h2>
           <form action={createProjectAction} className="mt-5">
-            <ProjectFields />
+            <ProjectFields categories={categories} />
             <button
               type="submit"
               className="mt-5 rounded-md bg-brandBlue px-5 py-3 font-bold text-white transition hover:bg-navy"
@@ -94,7 +111,15 @@ export default async function AdminGalleryPage() {
           </form>
         </section>
 
-        <AdminProjectsList projects={projects} updateAction={updateProjectAction} deleteAction={deleteProjectAction} />
+        <AdminProjectsList
+          projects={projects}
+          categories={categories}
+          updateAction={updateProjectAction}
+          deleteAction={deleteProjectAction}
+          createCategoryAction={createServiceCategoryAction}
+          updateCategoryAction={updateServiceCategoryAction}
+          deleteCategoryAction={deleteServiceCategoryAction}
+        />
       </div>
     </main>
   );

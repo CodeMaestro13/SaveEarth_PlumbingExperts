@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { AdminServicesList } from "@/components/admin-crud-lists";
+import { CategorySelectField } from "@/components/category-select-field";
 import {
   createServiceAction,
   createServiceCategoryAction,
@@ -31,23 +32,14 @@ function ServiceFields({ categories }: { categories: AdminServiceCategory[] }) {
         Title
         <input name="title" required className={inputClass} />
       </label>
-      <label className={labelClass}>
-        Category
-        {categories.length ? (
-          <select name="category" required defaultValue="" className={inputClass}>
-            <option value="" disabled>
-              Select a category
-            </option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.name}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-        ) : (
-          <input name="category" required className={inputClass} placeholder="Add a category first" />
-        )}
-      </label>
+      <CategorySelectField
+        categories={categories}
+        createCategoryAction={createServiceCategoryAction}
+        updateCategoryAction={updateServiceCategoryAction}
+        deleteCategoryAction={deleteServiceCategoryAction}
+        name="category"
+        label="Category"
+      />
       <label className={labelClass}>
         Icon
         <select name="iconKey" defaultValue="wrench" className={inputClass}>
@@ -83,84 +75,7 @@ function ServiceFields({ categories }: { categories: AdminServiceCategory[] }) {
 }
 
 function CategoryManager({ categories }: { categories: AdminServiceCategory[] }) {
-  return (
-    <section className="mt-8 rounded-lg border border-slate-200 bg-white p-6 shadow-soft">
-      <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-        <div>
-          <h2 className="text-2xl font-black text-navy">Manage Service Categories</h2>
-          <p className="mt-2 text-sm leading-6 text-slate-600">
-            Create categories once and reuse them for all services.
-          </p>
-        </div>
-      </div>
-
-      <form action={createServiceCategoryAction} className="mt-5 grid gap-4 md:grid-cols-[1.2fr_1fr_0.4fr_auto]">
-        <label className={labelClass}>
-          Category Name
-          <input name="name" required className={inputClass} placeholder="Plumbing" />
-        </label>
-        <label className={labelClass}>
-          Description
-          <input name="description" className={inputClass} placeholder="Optional" />
-        </label>
-        <label className={labelClass}>
-          Sort Order
-          <input name="sortOrder" type="number" defaultValue={0} className={inputClass} />
-        </label>
-        <label className="flex items-center gap-2 text-sm font-bold text-navy md:pt-8">
-          <input name="isActive" type="checkbox" defaultChecked />
-          Active
-        </label>
-        <button type="submit" className="rounded-md bg-brandBlue px-5 py-3 font-bold text-white transition hover:bg-navy md:col-span-4">
-          Add Category
-        </button>
-      </form>
-
-      <div className="mt-6 space-y-3">
-        {categories.length ? (
-          categories.map((category) => (
-            <div key={category.id} className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-              <form action={updateServiceCategoryAction} className="grid gap-3 md:grid-cols-[1.2fr_1fr_0.4fr_auto_auto]">
-                <input type="hidden" name="id" value={category.id} />
-                <label className={labelClass}>
-                  Name
-                  <input name="name" required defaultValue={category.name} className={inputClass} />
-                </label>
-                <label className={labelClass}>
-                  Description
-                  <input name="description" defaultValue={category.description ?? ""} className={inputClass} />
-                </label>
-                <label className={labelClass}>
-                  Sort
-                  <input name="sortOrder" type="number" defaultValue={category.sortOrder ?? 0} className={inputClass} />
-                </label>
-                <label className="flex items-center gap-2 text-sm font-bold text-navy md:pt-8">
-                  <input name="isActive" type="checkbox" defaultChecked={category.isActive} />
-                  Active
-                </label>
-                <div className="flex items-center gap-2 md:pt-8">
-                  <button type="submit" className="rounded-md bg-navy px-4 py-2 text-sm font-bold text-white transition hover:bg-brandBlue">
-                    Save
-                  </button>
-                  <button
-                    type="submit"
-                    formAction={deleteServiceCategoryAction}
-                    className="rounded-md border border-red-200 px-4 py-2 text-sm font-bold text-red-700 transition hover:bg-red-50"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </form>
-            </div>
-          ))
-        ) : (
-          <p className="rounded-lg border border-dashed border-slate-300 p-4 text-sm font-semibold text-slate-500">
-            No categories yet. Add the first one above.
-          </p>
-        )}
-      </div>
-    </section>
-  );
+  return null;
 }
 
 export default async function AdminServicesPage() {
@@ -209,13 +124,14 @@ export default async function AdminServicesPage() {
           </form>
         </section>
 
-        <CategoryManager categories={categories} />
-
         <AdminServicesList
           services={services}
           categories={categories}
           updateAction={updateServiceAction}
           deleteAction={deleteServiceAction}
+          createCategoryAction={createServiceCategoryAction}
+          updateCategoryAction={updateServiceCategoryAction}
+          deleteCategoryAction={deleteServiceCategoryAction}
         />
       </div>
     </main>

@@ -175,11 +175,19 @@ export async function getPublicServiceCategories(): Promise<AdminServiceCategory
     }
 
     const [rows] = await pool.query<ServiceCategoryRow[]>(
+      "SELECT * FROM categories WHERE is_active = 1 ORDER BY sort_order ASC, id DESC"
+    );
+
+    if (rows.length) {
+      return rows.map(mapServiceCategory);
+    }
+
+    const [legacyRows] = await pool.query<ServiceCategoryRow[]>(
       "SELECT * FROM service_categories WHERE is_active = 1 ORDER BY sort_order ASC, id DESC"
     );
 
-    return rows.length
-      ? rows.map(mapServiceCategory)
+    return legacyRows.length
+      ? legacyRows.map(mapServiceCategory)
       : Array.from(new Set(fallbackServices.map((service) => service.category))).map((name, index) => ({
           id: index + 1,
           name,
@@ -207,10 +215,18 @@ export async function getAdminServiceCategories(): Promise<AdminServiceCategory[
   }
 
   const [rows] = await pool.query<ServiceCategoryRow[]>(
+    "SELECT * FROM categories ORDER BY sort_order ASC, id DESC"
+  );
+
+  if (rows.length) {
+    return rows.map(mapServiceCategory);
+  }
+
+  const [legacyRows] = await pool.query<ServiceCategoryRow[]>(
     "SELECT * FROM service_categories ORDER BY sort_order ASC, id DESC"
   );
 
-  return rows.map(mapServiceCategory);
+  return legacyRows.map(mapServiceCategory);
 }
 
 export async function getPublicProjects(): Promise<Project[]> {
