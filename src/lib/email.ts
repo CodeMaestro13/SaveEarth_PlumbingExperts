@@ -43,7 +43,7 @@ export async function sendLeadNotification(lead: LeadEmailInput) {
     secure: Number(process.env.SMTP_PORT) === 465,
     auth: {
       user: process.env.SMTP_USER?.trim(),
-      pass: process.env.SMTP_PASSWORD
+      pass: process.env.SMTP_PASSWORD?.replace(/\s/g, "")
     }
   });
 
@@ -87,8 +87,8 @@ export async function sendLeadNotification(lead: LeadEmailInput) {
           <tr><td><strong>Phone</strong></td><td>${htmlLead.phone}</td></tr>
           <tr><td><strong>Email</strong></td><td>${htmlLead.email}</td></tr>
           <tr><td><strong>Service</strong></td><td>${htmlLead.service}</td></tr>
-          // <tr><td><strong>Source</strong></td><td>${htmlLead.source}</td></tr>
-          // <tr><td><strong>Page</strong></td><td>${htmlLead.page}</td></tr>
+          <tr><td><strong>Source</strong></td><td>${htmlLead.source}</td></tr>
+          <tr><td><strong>Page</strong></td><td>${htmlLead.page}</td></tr>
         </table>
         <h3 style="margin: 20px 0 8px;">Message</h3>
         <p style="white-space: pre-line;">${htmlLead.message}</p>

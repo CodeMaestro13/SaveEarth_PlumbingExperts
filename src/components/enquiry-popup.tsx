@@ -31,6 +31,7 @@ export function EnquiryPopup() {
 
   useEffect(() => {
     if (pathname === "/thank-you") {
+      setOpen(false);
       return;
     }
 
@@ -186,6 +187,7 @@ export function EnquiryPopup() {
                 return;
               }
 
+              closePopup();
               router.push("/thank-you");
             } catch {
               setError("Network error. Please check your connection and try again.");
