@@ -1,16 +1,18 @@
 import { CalendarCheck, MessageCircle, PhoneCall } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { company } from "@/data/site";
+import type { CompanyContent } from "@/lib/site-content";
 
 type CtaSectionProps = {
   title?: string;
   description?: string;
+  company: CompanyContent;
 };
 
 export function CtaSection({
   title = "Need a reliable water systems partner?",
-  description = "Book a site inspection for waterproofing, plumbing, pool construction, water bodies, or maintenance. Our team will assess the issue and share a practical execution plan."
+  description = "Book a site inspection for waterproofing, plumbing, pool construction, water bodies, or maintenance. Our team will assess the issue and share a practical execution plan.",
+  company
 }: CtaSectionProps) {
   return (
     <section className="bg-navy py-16 text-white md:py-20">

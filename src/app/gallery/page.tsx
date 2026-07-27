@@ -5,17 +5,22 @@ import { GalleryFilter } from "@/components/gallery-filter";
 import { SectionHeading } from "@/components/section-heading";
 import { getGalleryCategories, getPublicProjects } from "@/lib/content";
 import { createPageMetadata } from "@/lib/seo";
+import { getSiteContent } from "@/lib/site-content";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Plumbing, Waterproofing & Pool Project Gallery",
   description:
     "View selected waterproofing, plumbing, swimming pool, water feature, and commercial project work from Save Earth Plumbing Experts.",
   path: "/gallery",
-  image: "/images/india-projects/indian-pool-construction.png"
+  image: "https://apis.saveearthplumbing.com/uploads/static/images/india-projects/indian-pool-construction.png"
 });
 
 export default async function GalleryPage() {
-  const [projects, categories] = await Promise.all([getPublicProjects(), getGalleryCategories()]);
+  const [projects, categories, site] = await Promise.all([
+    getPublicProjects(),
+    getGalleryCategories(),
+    getSiteContent()
+  ]);
 
   return (
     <>
@@ -51,7 +56,7 @@ export default async function GalleryPage() {
         </div>
       </section>
 
-      <CtaSection title="Have a similar project in mind?" />
+      <CtaSection title="Have a similar project in mind?" company={site.company} />
     </>
   );
 }

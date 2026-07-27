@@ -12,7 +12,6 @@ import {
 } from "@/lib/admin-actions";
 import { requireAdmin } from "@/lib/admin-auth";
 import { getAdminProjects, getAdminServiceCategories, type AdminProject, type AdminServiceCategory } from "@/lib/content";
-import { hasDatabaseConfig } from "@/lib/db";
 
 const inputClass =
   "mt-2 w-full rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-800 outline-none focus:border-brandBlue";
@@ -91,7 +90,7 @@ export default async function AdminGalleryPage() {
           Add new gallery projects, then edit or delete saved database rows from the compact list below.
         </p>
 
-        {!hasDatabaseConfig() || loadError ? (
+        {loadError ? (
           <div className="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-5 text-amber-900">
             <p className="font-bold">Database is not reachable.</p>
             <p className="mt-1 text-sm">Check DB environment variables and server access before editing.</p>

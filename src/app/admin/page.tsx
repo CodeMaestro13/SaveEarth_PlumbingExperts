@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Images, LogOut, Plus, Wrench } from "lucide-react";
+import { Images, LogOut, Plus, ShieldCheck, Wrench } from "lucide-react";
 import { logoutAdminAction } from "@/lib/admin-actions";
 import { requireAdmin } from "@/lib/admin-auth";
 import {
@@ -9,7 +9,6 @@ import {
   type AdminProject,
   type AdminService
 } from "@/lib/content";
-import { hasDatabaseConfig } from "@/lib/db";
 
 export default async function AdminDashboardPage() {
   await requireAdmin();
@@ -34,18 +33,27 @@ export default async function AdminDashboardPage() {
             </p>
             <h1 className="mt-2 text-4xl font-black text-navy">Website content</h1>
           </div>
-          <form action={logoutAdminAction}>
-            <button
-              type="submit"
-              className="inline-flex items-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2 font-bold text-navy transition hover:border-brandBlue"
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/admin/admins"
+              className="inline-flex items-center gap-2 rounded-md bg-brandBlue px-4 py-2 font-bold text-white transition hover:bg-navy"
             >
-              <LogOut className="h-4 w-4" />
-              Logout
-            </button>
-          </form>
+              <ShieldCheck className="h-4 w-4" />
+              Manage Admins
+            </Link>
+            <form action={logoutAdminAction}>
+              <button
+                type="submit"
+                className="inline-flex items-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2 font-bold text-navy transition hover:border-brandBlue"
+              >
+                <LogOut className="h-4 w-4" />
+                Logout
+              </button>
+            </form>
+          </div>
         </div>
 
-        {!hasDatabaseConfig() || loadError ? (
+        {loadError ? (
           <div className="mt-8 rounded-lg border border-amber-200 bg-amber-50 p-5 text-amber-900">
             <p className="font-bold">Database is not reachable.</p>
             <p className="mt-1 text-sm">

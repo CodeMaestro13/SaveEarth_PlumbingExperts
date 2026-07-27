@@ -1,33 +1,29 @@
 import type { NextConfig } from "next";
 
-function getAllowedOrigins() {
-  return [
-    process.env.NEXT_PUBLIC_SITE_URL,
-    process.env.SITE_URL,
-    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
-    process.env.ADMIN_ALLOWED_ORIGINS
-  ]
-    .filter(Boolean)
-    .flatMap((value) => String(value).split(","))
-    .map((value) => value.trim().replace(/^https?:\/\//, "").replace(/\/$/, ""))
-    .filter(Boolean);
-}
-
-const allowedOrigins = getAllowedOrigins();
+const backendUrl = process.env.BACKEND_API_URL
+  ? new URL(process.env.BACKEND_API_URL)
+  : new URL("http://127.0.0.1/apisbackend/index.php/api");
+const backendBasePath = backendUrl.pathname
+  .replace(/\/index\.php\/api\/?$/, "")
+  .replace(/\/api\/?$/, "");
 
 const nextConfig: NextConfig = {
-  experimental: allowedOrigins.length
-    ? {
-        serverActions: {
-          allowedOrigins
-        }
-      }
-    : undefined,
   images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "images.unsplash.com"
+      },
+      {
+        protocol: backendUrl.protocol.replace(":", "") as "http" | "https",
+        hostname: backendUrl.hostname,
+        port: backendUrl.port,
+        pathname: `${backendBasePath}/uploads/**`
+      },
+      {
+        protocol: "https",
+        hostname: "apis.saveearthplumbing.com",
+        pathname: "/uploads/**"
       }
     ]
   }

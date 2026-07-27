@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, Home, MessageCircle, PhoneCall } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { company } from "@/data/site";
+import { getSiteContent } from "@/lib/site-content";
 
 export const metadata: Metadata = {
   title: "Thank You | Save Earth Plumbing Experts",
@@ -10,7 +10,8 @@ export const metadata: Metadata = {
     "Thank you for contacting Save Earth Plumbing Experts. Our team will get back to you shortly."
 };
 
-export default function ThankYouPage() {
+export default async function ThankYouPage() {
+  const { company } = await getSiteContent();
   return (
     <section className="min-h-[70vh] bg-cloud py-20">
       <div className="container">

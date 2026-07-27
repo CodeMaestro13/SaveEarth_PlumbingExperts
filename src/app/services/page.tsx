@@ -4,20 +4,20 @@ import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { CtaSection } from "@/components/cta-section";
 import { SectionHeading } from "@/components/section-heading";
 import { ServiceCard } from "@/components/service-card";
-import { serviceScopes } from "@/data/site";
 import { getPublicServices } from "@/lib/content";
 import { createPageMetadata } from "@/lib/seo";
+import { getSiteContent } from "@/lib/site-content";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Plumbing, Waterproofing, Pool & Water Body Services",
   description:
     "Explore plumbing works, drainage and sanitary works, pump installation, water tank works, bathroom and kitchen plumbing, waterproofing, swimming pools, fountains, and AMC services.",
   path: "/services",
-  image: "/images/india-projects/indian-terrace-waterproofing.png"
+  image: "https://apis.saveearthplumbing.com/uploads/static/images/india-projects/indian-terrace-waterproofing.png"
 });
 
 export default async function ServicesPage() {
-  const services = await getPublicServices();
+  const [services, site] = await Promise.all([getPublicServices(), getSiteContent()]);
 
   return (
     <>
@@ -50,7 +50,7 @@ export default async function ServicesPage() {
             description="Our plumbing team handles new installations, upgrades, repairs, and utility connections with proper material selection, pressure testing, and clean handover."
           />
           <div className="grid gap-5 lg:grid-cols-2">
-            {serviceScopes.map((scope) => (
+            {site.serviceScopes.map((scope) => (
               <article
                 key={scope.title}
                 className="rounded-lg border border-slate-200 bg-cloud p-6 shadow-soft"
@@ -89,7 +89,7 @@ export default async function ServicesPage() {
         </div>
       </section>
 
-      <CtaSection title="Request a site visit for the right service recommendation" />
+      <CtaSection title="Request a site visit for the right service recommendation" company={site.company} />
     </>
   );
 }

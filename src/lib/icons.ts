@@ -1,15 +1,20 @@
 import {
+  BadgeCheck,
   Bath,
   Building2,
   Clock3,
   Droplets,
   Factory,
   Hammer,
+  Headphones,
   LifeBuoy,
+  MapPin,
+  PhoneCall,
   ShieldCheck,
   Sparkles,
   Waves,
-  Wrench
+  Wrench,
+  Zap
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -31,6 +36,19 @@ const iconMap = serviceIconOptions.reduce<Record<string, LucideIcon>>((icons, it
   icons[item.key] = item.icon;
   return icons;
 }, {});
+
+Object.assign(iconMap, {
+  "badge-check": BadgeCheck,
+  "shield-check": ShieldCheck,
+  zap: Zap,
+  headphones: Headphones,
+  "map-pin": MapPin,
+  "phone-call": PhoneCall,
+  "clock-3": Clock3,
+  clock3: Clock3,
+  sparkles: Sparkles,
+  droplets: Droplets
+});
 
 export function getServiceIcon(iconKey?: string, fallback?: LucideIcon) {
   if (iconKey && iconMap[iconKey]) {

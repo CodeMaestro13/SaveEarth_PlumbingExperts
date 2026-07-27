@@ -7,16 +7,19 @@ import { MotionReveal } from "@/components/motion-reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { StatsSection } from "@/components/stats-section";
 import { createPageMetadata } from "@/lib/seo";
+import { getBackendAssetUrl } from "@/lib/backend-api";
+import { getSiteContent } from "@/lib/site-content";
 
 export const metadata: Metadata = createPageMetadata({
   title: "About Save Earth Plumbing Experts",
   description:
     "Learn about Save Earth Plumbing Experts, a specialist plumbing, waterproofing, swimming pool, and water body development company serving residential and commercial clients.",
   path: "/about",
-  image: "/images/india-projects/indian-apartment-plumbing.png"
+  image: "https://apis.saveearthplumbing.com/uploads/static/images/india-projects/indian-apartment-plumbing.png"
 });
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const site = await getSiteContent();
   const values = [
     "Technical diagnosis before recommendations",
     "Material selection suited to site conditions",
@@ -48,14 +51,14 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <StatsSection />
+      <StatsSection stats={site.stats} trustItems={site.trustItems} />
 
       <section className="section-padding bg-white">
         <div className="container grid gap-12 lg:grid-cols-2 lg:items-center">
           <MotionReveal>
             <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-premium">
               <Image
-                src="/images/india-projects/indian-apartment-plumbing.png"
+                src={getBackendAssetUrl("/uploads/static/images/india-projects/indian-apartment-plumbing.png")}
                 alt="Save Earth Plumbing Experts team inspecting a project site"
                 fill
                 className="object-cover"
@@ -105,7 +108,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <CtaSection title="Ready to discuss your site?" />
+      <CtaSection title="Ready to discuss your site?" company={site.company} />
     </>
   );
 }

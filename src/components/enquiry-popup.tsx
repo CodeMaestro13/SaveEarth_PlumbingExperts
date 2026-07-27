@@ -4,7 +4,7 @@ import { Check, ChevronDown, MessageCircle, PhoneCall, Send, X } from "lucide-re
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { company } from "@/data/site";
+import type { CompanyContent } from "@/lib/site-content";
 
 type PopupServiceOption = {
   id?: number;
@@ -13,7 +13,7 @@ type PopupServiceOption = {
   category?: string;
 };
 
-export function EnquiryPopup() {
+export function EnquiryPopup({ company }: { company: CompanyContent }) {
   const router = useRouter();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);

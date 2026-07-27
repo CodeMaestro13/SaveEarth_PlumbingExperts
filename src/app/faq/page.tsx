@@ -3,8 +3,8 @@ import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { CtaSection } from "@/components/cta-section";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { SectionHeading } from "@/components/section-heading";
-import { faqs } from "@/data/site";
 import { createPageMetadata } from "@/lib/seo";
+import { getSiteContent } from "@/lib/site-content";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Frequently Asked Questions",
@@ -13,7 +13,8 @@ export const metadata: Metadata = createPageMetadata({
   path: "/faq"
 });
 
-export default function FaqPage() {
+export default async function FaqPage() {
+  const { faqs, company } = await getSiteContent();
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -65,7 +66,7 @@ export default function FaqPage() {
         </div>
       </section>
 
-      <CtaSection title="Still deciding? Speak with a specialist." />
+      <CtaSection title="Still deciding? Speak with a specialist." company={company} />
     </>
   );
 }

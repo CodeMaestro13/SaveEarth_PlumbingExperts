@@ -1,7 +1,7 @@
 import { MessageCircle } from "lucide-react";
-import { company } from "@/data/site";
+import type { CompanyContent } from "@/lib/site-content";
 
-export function WhatsAppButton() {
+export function WhatsAppButton({ company }: { company: CompanyContent }) {
   return (
     <a
       href={company.whatsappHref}

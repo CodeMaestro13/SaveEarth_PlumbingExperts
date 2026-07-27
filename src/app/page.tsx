@@ -10,25 +10,30 @@ import { ServiceCard } from "@/components/service-card";
 import { StatsSection } from "@/components/stats-section";
 import { TestimonialsSection } from "@/components/testimonials-section";
 import { Button } from "@/components/ui/button";
-import { serviceAreas, whyChooseUs } from "@/data/site";
 import { getPublicProjects, getPublicServices } from "@/lib/content";
+import { getServiceIcon } from "@/lib/icons";
 import { createPageMetadata } from "@/lib/seo";
+import { getSiteContent } from "@/lib/site-content";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Plumbing, Waterproofing & Pool Contractor in Hyderabad",
   description:
     "Save Earth Plumbing Experts provides plumbing, waterproofing, swimming pool construction, water body development, leak detection, and maintenance for homes and commercial properties in Hyderabad.",
   path: "/",
-  image: "/images/india-projects/indian-apartment-plumbing.png"
+  image: "https://apis.saveearthplumbing.com/uploads/static/images/india-projects/indian-apartment-plumbing.png"
 });
 
 export default async function HomePage() {
-  const [services, projects] = await Promise.all([getPublicServices(), getPublicProjects()]);
+  const [services, projects, site] = await Promise.all([
+    getPublicServices(),
+    getPublicProjects(),
+    getSiteContent()
+  ]);
 
   return (
     <>
-      <HeroSection />
-      <StatsSection />
+      <HeroSection company={site.company} stats={site.stats} />
+      <StatsSection stats={site.stats} trustItems={site.trustItems} />
 
       <section className="section-padding bg-cloud">
         <div className="container">
@@ -58,11 +63,12 @@ export default async function HomePage() {
             description="Every project begins with site understanding, practical planning, and the right materials for the environment. That discipline is what protects the finished work."
           />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {whyChooseUs.map((item, index) => (
-              <MotionReveal key={item.title} delay={index * 0.04}>
+            {site.whyChooseUs.map((item, index) => {
+              const Icon = getServiceIcon(item.iconKey);
+              return <MotionReveal key={item.title} delay={index * 0.04}>
                 <div className="flex h-full gap-4 rounded-lg border border-slate-200 bg-white p-6 shadow-soft">
                   <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-blue-50 text-brandBlue">
-                    <item.icon className="h-6 w-6" />
+                    <Icon className="h-6 w-6" />
                   </span>
                   <div>
                     <h3 className="text-lg font-bold text-navy">{item.title}</h3>
@@ -71,8 +77,8 @@ export default async function HomePage() {
                     </p>
                   </div>
                 </div>
-              </MotionReveal>
-            ))}
+              </MotionReveal>;
+            })}
           </div>
         </div>
       </section>
@@ -88,7 +94,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <TestimonialsSection />
+      <TestimonialsSection testimonials={site.testimonials} />
 
       <section className="section-padding bg-white">
         <div className="container grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
@@ -100,7 +106,7 @@ export default async function HomePage() {
             className="mb-0"
           />
           <div className="grid gap-3 sm:grid-cols-2">
-            {serviceAreas.map((area) => (
+            {site.serviceAreas.map((area) => (
               <div
                 key={area}
                 className="flex items-center gap-3 rounded-lg border border-slate-200 bg-cloud p-4 font-semibold text-navy"
@@ -124,7 +130,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <CtaSection />
+      <CtaSection company={site.company} />
     </>
   );
 }

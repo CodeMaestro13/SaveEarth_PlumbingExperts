@@ -1,7 +1,7 @@
 import { PhoneCall } from "lucide-react";
-import { company } from "@/data/site";
+import type { CompanyContent } from "@/lib/site-content";
 
-export function StickyMobileCall() {
+export function StickyMobileCall({ company }: { company: CompanyContent }) {
   return (
     <a
       href={company.phoneHref}

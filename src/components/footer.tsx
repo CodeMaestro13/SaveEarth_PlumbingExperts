@@ -1,9 +1,21 @@
 import { Mail, MapPin, PhoneCall } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { company, navItems, services } from "@/data/site";
+import type { CompanyContent } from "@/lib/site-content";
+import type { NavItem } from "@/types/site";
+import type { Service } from "@/types/site";
 
-export function Footer() {
+export function Footer({
+  company,
+  navItems,
+  services,
+  logoUrl
+}: {
+  company: CompanyContent;
+  navItems: NavItem[];
+  services: Service[];
+  logoUrl: string;
+}) {
   const serviceLinks = services.slice(0, 6);
 
   return (
@@ -13,7 +25,7 @@ export function Footer() {
           <div className="mb-4 flex items-center gap-4">
             <span className="relative h-16 w-full max-w-[320px] overflow-hidden rounded-md bg-black/20 shadow-soft">
               <Image
-                src="/brand/save-earth-plumbing-experts-logo.jpeg"
+                src={logoUrl}
                 alt={`${company.name} logo`}
                 fill
                 className="object-contain"

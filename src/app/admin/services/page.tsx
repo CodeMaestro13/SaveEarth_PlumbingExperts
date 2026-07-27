@@ -17,7 +17,6 @@ import {
   type AdminService,
   type AdminServiceCategory
 } from "@/lib/content";
-import { hasDatabaseConfig } from "@/lib/db";
 import { serviceIconOptions } from "@/lib/icons";
 
 const inputClass =
@@ -104,7 +103,7 @@ export default async function AdminServicesPage() {
           Add new services, then edit or delete saved database rows from the compact list below.
         </p>
 
-        {!hasDatabaseConfig() || loadError ? (
+        {loadError ? (
           <div className="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-5 text-amber-900">
             <p className="font-bold">Database is not reachable.</p>
             <p className="mt-1 text-sm">Check DB environment variables and server access before editing.</p>

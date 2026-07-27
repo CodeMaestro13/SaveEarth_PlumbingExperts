@@ -1,7 +1,16 @@
-import { stats, trustItems } from "@/data/site";
 import { MotionReveal } from "@/components/motion-reveal";
+import { getServiceIcon } from "@/lib/icons";
+import type { Stat } from "@/types/site";
 
-export function StatsSection() {
+type StatsSectionProps = {
+  stats: Stat[];
+  trustItems: Array<{ title: string; iconKey?: string }>;
+};
+
+export function StatsSection({
+  stats,
+  trustItems
+}: StatsSectionProps) {
   return (
     <section className="bg-white py-10">
       <div className="container grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
@@ -14,14 +23,15 @@ export function StatsSection() {
           ))}
         </MotionReveal>
         <MotionReveal delay={0.1} className="grid gap-4 sm:grid-cols-2">
-          {trustItems.map((item) => (
-            <div key={item.title} className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-4">
+          {trustItems.map((item) => {
+            const Icon = getServiceIcon(item.iconKey);
+            return <div key={item.title} className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-4">
               <span className="flex h-11 w-11 items-center justify-center rounded-md bg-blue-50 text-brandBlue">
-                <item.icon className="h-5 w-5" />
+                <Icon className="h-5 w-5" />
               </span>
               <p className="font-bold text-navy">{item.title}</p>
-            </div>
-          ))}
+            </div>;
+          })}
         </MotionReveal>
       </div>
     </section>

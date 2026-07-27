@@ -7,9 +7,10 @@ import { Navbar } from "@/components/navbar";
 import { RouteChrome } from "@/components/route-chrome";
 import { StickyMobileCall } from "@/components/sticky-mobile-call";
 import { WhatsAppButton } from "@/components/whatsapp-button";
-import { company, serviceAreas } from "@/data/site";
+import { getBackendAssetUrl } from "@/lib/backend-api";
 import { getPublicServices } from "@/lib/content";
 import { absoluteUrl, logoPath, siteName, siteUrl } from "@/lib/seo";
+import { getSiteContent } from "@/lib/site-content";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -36,12 +37,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/brand/favicon-32.png", sizes: "32x32", type: "image/png" },
-      { url: "/brand/save-earth-icon-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/brand/save-earth-icon-512.png", sizes: "512x512", type: "image/png" }
+      { url: "https://apis.saveearthplumbing.com/uploads/static/brand/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "https://apis.saveearthplumbing.com/uploads/static/brand/save-earth-icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "https://apis.saveearthplumbing.com/uploads/static/brand/save-earth-icon-512.png", sizes: "512x512", type: "image/png" }
     ],
-    shortcut: [{ url: "/brand/favicon-32.png", sizes: "32x32", type: "image/png" }],
-    apple: [{ url: "/brand/apple-touch-icon.png", sizes: "180x180", type: "image/png" }]
+    shortcut: [{ url: "https://apis.saveearthplumbing.com/uploads/static/brand/favicon-32.png", sizes: "32x32", type: "image/png" }],
+    apple: [{ url: "https://apis.saveearthplumbing.com/uploads/static/brand/apple-touch-icon.png", sizes: "180x180", type: "image/png" }]
   },
   openGraph: {
     title: siteName,
@@ -74,7 +75,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  const services = await getPublicServices();
+  const [services, site] = await Promise.all([getPublicServices(), getSiteContent()]);
+  const { company, navItems, serviceAreas } = site;
+  const backendLogoUrl = getBackendAssetUrl(
+    "/uploads/static/brand/save-earth-plumbing-experts-logo.jpeg"
+  );
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Plumber",
@@ -134,7 +139,7 @@ export default async function RootLayout({
   };
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen font-sans antialiased">
         <script
           type="application/ld+json"
@@ -147,12 +152,12 @@ export default async function RootLayout({
         <RouteChrome
           publicChrome={
             <>
-              <Navbar />
+              <Navbar company={company} navItems={navItems} logoUrl={backendLogoUrl} />
               <main>{children}</main>
-              <Footer />
-              <EnquiryPopup />
-              <WhatsAppButton />
-              <StickyMobileCall />
+              <Footer company={company} navItems={navItems} services={services} logoUrl={backendLogoUrl} />
+              <EnquiryPopup company={company} />
+              <WhatsAppButton company={company} />
+              <StickyMobileCall company={company} />
             </>
           }
         >

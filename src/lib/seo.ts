@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
-import { company } from "@/data/site";
 
 export const siteUrl = "https://saveearthplumbingexperts.com";
-export const siteName = company.name;
-export const logoPath = "/brand/save-earth-plumbing-experts-logo.jpeg";
+export const siteName = "Save Earth Plumbing Experts";
+export const logoPath =
+  "https://apis.saveearthplumbing.com/uploads/static/brand/save-earth-plumbing-experts-logo.jpeg";
 
 export const absoluteUrl = (path = "/") => {
+  if (/^https?:\/\//i.test(path)) {
+    return path;
+  }
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
   return `${siteUrl}${normalizedPath}`;
 };

@@ -3,18 +3,20 @@ import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { ContactForm } from "@/components/contact-form";
 import { CtaSection } from "@/components/cta-section";
 import { SectionHeading } from "@/components/section-heading";
-import { contactCards } from "@/data/site";
+import { getServiceIcon } from "@/lib/icons";
 import { createPageMetadata } from "@/lib/seo";
+import { getSiteContent } from "@/lib/site-content";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Contact Save Earth Plumbing Experts",
   description:
     "Contact Save Earth Plumbing Experts for plumbing, waterproofing, swimming pool construction, water body development, leak detection, and maintenance quotations.",
   path: "/contact",
-  image: "/images/india-projects/indian-pump-room-maintenance.png"
+  image: "https://apis.saveearthplumbing.com/uploads/static/images/india-projects/indian-pump-room-maintenance.png"
 });
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const { contactCards, company } = await getSiteContent();
   return (
     <>
       <BreadcrumbJsonLd
@@ -49,10 +51,11 @@ export default function ContactPage() {
               className="mb-8"
             />
             <div className="grid gap-4">
-              {contactCards.map((card) => (
-                <div key={card.label} className="flex gap-4 rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
+              {contactCards.map((card) => {
+                const Icon = getServiceIcon(card.iconKey);
+                return <div key={card.label} className="flex gap-4 rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
                   <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-blue-50 text-brandBlue">
-                    <card.icon className="h-6 w-6" />
+                    <Icon className="h-6 w-6" />
                   </span>
                   <div>
                     <p className="text-sm font-bold uppercase tracking-[0.16em] text-slate-500">
@@ -60,8 +63,8 @@ export default function ContactPage() {
                     </p>
                     <p className="mt-1 font-semibold leading-7 text-navy">{card.value}</p>
                   </div>
-                </div>
-              ))}
+                </div>;
+              })}
             </div>
           </div>
           <ContactForm />
@@ -85,7 +88,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <CtaSection title="Need urgent leakage or plumbing support?" />
+      <CtaSection title="Need urgent leakage or plumbing support?" company={company} />
     </>
   );
 }

@@ -3,35 +3,39 @@ import Link from "next/link";
 import { HeroBackgroundSlider } from "@/components/hero-background-slider";
 import { MotionReveal } from "@/components/motion-reveal";
 import { Button } from "@/components/ui/button";
-import { company, stats } from "@/data/site";
+import { getBackendAssetUrl } from "@/lib/backend-api";
+import type { CompanyContent } from "@/lib/site-content";
+import type { Stat } from "@/types/site";
 
 type HeroSectionProps = {
   title?: string;
   description?: string;
   image?: string;
   eyebrow?: string;
+  company: CompanyContent;
+  stats: Stat[];
 };
 
 const backgroundSlides = [
   {
     title: "Professional plumbing installation",
-    image: "/images/india-projects/indian-apartment-plumbing.png"
+    image: "/uploads/static/images/india-projects/indian-apartment-plumbing.png"
   },
   {
     title: "Swimming pool construction and design",
-    image: "/images/india-projects/indian-pool-construction.png"
+    image: "/uploads/static/images/india-projects/indian-pool-construction.png"
   },
   {
     title: "Terrace waterproofing project",
-    image: "/images/india-projects/indian-terrace-waterproofing.png"
+    image: "/uploads/static/images/india-projects/indian-terrace-waterproofing.png"
   },
   {
     title: "Water body and fountain development",
-    image: "/images/india-projects/indian-water-feature-installation.png"
+    image: "/uploads/static/images/india-projects/indian-water-feature-installation.png"
   },
   {
     title: "Commercial water infrastructure work",
-    image: "/images/india-projects/indian-pump-room-maintenance.png"
+    image: "/uploads/static/images/india-projects/indian-pump-room-maintenance.png"
   }
 ];
 
@@ -39,9 +43,16 @@ export function HeroSection({
   eyebrow = "Save water. Protect property.",
   title = "Professional Plumbing & Waterproofing Solutions",
   description = "Save Earth Plumbing Experts delivers premium waterproofing, plumbing, swimming pool construction, and water body development services with disciplined execution and dependable after-service.",
-  image
+  image,
+  company,
+  stats
 }: HeroSectionProps) {
-  const slides = image ? [{ title: "Project background", image }] : backgroundSlides;
+  const slides = image
+    ? [{ title: "Project background", image }]
+    : backgroundSlides.map((slide) => ({
+        ...slide,
+        image: getBackendAssetUrl(slide.image)
+      }));
 
   return (
     <section className="relative overflow-hidden bg-navy text-white">

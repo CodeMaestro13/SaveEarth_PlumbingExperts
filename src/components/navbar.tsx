@@ -6,10 +6,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { company, navItems } from "@/data/site";
 import { cn } from "@/lib/utils";
+import type { CompanyContent } from "@/lib/site-content";
+import type { NavItem } from "@/types/site";
 
-export function Navbar() {
+export function Navbar({
+  company,
+  navItems,
+  logoUrl
+}: {
+  company: CompanyContent;
+  navItems: NavItem[];
+  logoUrl: string;
+}) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -19,7 +28,7 @@ export function Navbar() {
         <Link href="/" className="flex min-w-0 items-center focus-ring">
           <span className="relative h-12 w-[210px] shrink-0 overflow-hidden rounded-md bg-navy shadow-soft sm:w-[280px] lg:h-14 lg:w-[340px]">
             <Image
-              src="/brand/save-earth-plumbing-experts-logo.jpeg"
+              src={logoUrl}
               alt={`${company.name} logo`}
               fill
               priority

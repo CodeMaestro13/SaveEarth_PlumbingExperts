@@ -1,38 +1,14 @@
 import "server-only";
 
-import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { createHmac, timingSafeEqual } from "node:crypto";
+import { backendRequest, backendSessionCookieName } from "@/lib/backend-api";
 
-const sessionCookieName = "save-earth-admin-session";
 const sessionMaxAgeSeconds = 60 * 60 * 8;
 
-function getSessionSecret() {
-  return process.env.ADMIN_SESSION_SECRET || process.env.ADMIN_PASSWORD_HASH || "change-this-secret";
-}
-
-function sign(value: string) {
-  return createHmac("sha256", getSessionSecret()).update(value).digest("hex");
-}
-
-function isValidSignature(value: string, signature: string) {
-  const expected = Buffer.from(sign(value));
-  const actual = Buffer.from(signature);
-
-  if (expected.length !== actual.length) {
-    return false;
-  }
-
-  return timingSafeEqual(expected, actual);
-}
-
-export async function createAdminSession() {
-  const expiresAt = Date.now() + sessionMaxAgeSeconds * 1000;
-  const payload = Buffer.from(JSON.stringify({ expiresAt })).toString("base64url");
+export async function createAdminSession(token: string) {
   const cookieStore = await cookies();
-
-  cookieStore.set(sessionCookieName, `${payload}.${sign(payload)}`, {
+  cookieStore.set(backendSessionCookieName, token, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
@@ -43,28 +19,18 @@ export async function createAdminSession() {
 
 export async function destroyAdminSession() {
   const cookieStore = await cookies();
-  cookieStore.delete(sessionCookieName);
+  cookieStore.delete(backendSessionCookieName);
 }
 
 export async function isAdminAuthenticated() {
   const cookieStore = await cookies();
-  const cookie = cookieStore.get(sessionCookieName)?.value;
-
-  if (!cookie) {
-    return false;
-  }
-
-  const [payload, signature] = cookie.split(".");
-
-  if (!payload || !signature || !isValidSignature(payload, signature)) {
+  if (!cookieStore.get(backendSessionCookieName)?.value) {
     return false;
   }
 
   try {
-    const session = JSON.parse(Buffer.from(payload, "base64url").toString("utf8")) as {
-      expiresAt?: number;
-    };
-    return typeof session.expiresAt === "number" && session.expiresAt > Date.now();
+    await backendRequest("/auth/me", {}, true);
+    return true;
   } catch {
     return false;
   }
@@ -77,17 +43,14 @@ export async function requireAdmin() {
 }
 
 export async function validateAdminCredentials(username: string, password: string) {
-  const expectedUsername = process.env.ADMIN_USERNAME;
-  const passwordHash = process.env.ADMIN_PASSWORD_HASH;
-  const plainPassword = process.env.ADMIN_PASSWORD;
-
-  if (!expectedUsername || username !== expectedUsername) {
-    return false;
+  try {
+    const result = await backendRequest<{ token: string }>("/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password })
+    });
+    return result.token;
+  } catch {
+    return null;
   }
-
-  if (passwordHash) {
-    return bcrypt.compare(password, passwordHash);
-  }
-
-  return Boolean(plainPassword && password === plainPassword);
 }

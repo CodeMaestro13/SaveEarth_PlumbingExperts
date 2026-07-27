@@ -2,9 +2,12 @@ import { Quote } from "lucide-react";
 import { MotionReveal } from "@/components/motion-reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { Card, CardContent } from "@/components/ui/card";
-import { testimonials } from "@/data/site";
 
-export function TestimonialsSection() {
+export function TestimonialsSection({
+  testimonials
+}: {
+  testimonials: Array<{ name: string; role: string; quote: string }>;
+}) {
   return (
     <section className="section-padding bg-cloud">
       <div className="container">
