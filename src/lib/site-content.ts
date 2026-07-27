@@ -29,7 +29,46 @@ export type SiteContent = {
   contactCards: Array<{ label: string; value: string; iconKey: string }>;
 };
 
+const emptyCompany: CompanyContent = {
+  name: "Save Earth Plumbing Experts",
+  shortName: "Save Earth",
+  contactPerson: "",
+  phone: "",
+  phoneHref: "tel:",
+  whatsappHref: "#",
+  email: "",
+  address: "",
+  hours: ""
+};
+
+function arrayOrEmpty<T>(value: unknown): T[] {
+  return Array.isArray(value) ? value : [];
+}
+
 export async function getSiteContent(): Promise<SiteContent> {
-  const result = await backendRequest<{ content: SiteContent }>("/site-content");
-  return result.content;
+  const result = await backendRequest<{ content?: Partial<SiteContent> | null }>(
+    "/site-content"
+  );
+  const content =
+    result.content && typeof result.content === "object" && !Array.isArray(result.content)
+      ? result.content
+      : {};
+  const company =
+    content.company && typeof content.company === "object"
+      ? { ...emptyCompany, ...content.company }
+      : emptyCompany;
+
+  return {
+    company,
+    navItems: arrayOrEmpty<NavItem>(content.navItems),
+    stats: arrayOrEmpty<Stat>(content.stats),
+    trustItems: arrayOrEmpty(content.trustItems),
+    serviceScopes: arrayOrEmpty(content.serviceScopes),
+    whyChooseUs: arrayOrEmpty(content.whyChooseUs),
+    serviceAreas: arrayOrEmpty<string>(content.serviceAreas),
+    testimonials: arrayOrEmpty(content.testimonials),
+    faqs: arrayOrEmpty<Faq>(content.faqs),
+    galleryCategories: arrayOrEmpty<string>(content.galleryCategories),
+    contactCards: arrayOrEmpty(content.contactCards)
+  };
 }

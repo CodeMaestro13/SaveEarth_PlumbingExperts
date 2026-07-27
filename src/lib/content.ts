@@ -25,8 +25,8 @@ export type AdminProject = Project & {
 };
 
 export async function getPublicServices(): Promise<Service[]> {
-  const data = await backendRequest<{ services: Service[] }>("/services");
-  return data.services;
+  const data = await backendRequest<{ services?: Service[] }>("/services");
+  return Array.isArray(data.services) ? data.services : [];
 }
 
 export async function getAdminServices(): Promise<AdminService[]> {
@@ -49,8 +49,8 @@ export async function getAdminServiceCategories(): Promise<AdminServiceCategory[
 }
 
 export async function getPublicProjects(): Promise<Project[]> {
-  const data = await backendRequest<{ projects: Project[] }>("/projects");
-  return data.projects;
+  const data = await backendRequest<{ projects?: Project[] }>("/projects");
+  return Array.isArray(data.projects) ? data.projects : [];
 }
 
 export async function getAdminProjects(): Promise<AdminProject[]> {
