@@ -1,5 +1,10 @@
-import { backendRequest } from "@/lib/backend-api";
+import { backendRequest, getBackendAssetUrl } from "@/lib/backend-api";
 import type { Project, Service } from "@/types/site";
+
+type BackendImage = {
+  image: string;
+  imagePath?: string;
+};
 
 export type AdminService = Service & {
   id: number;
@@ -24,14 +29,28 @@ export type AdminProject = Project & {
   updatedAt?: Date;
 };
 
+function normalizeImage<T extends BackendImage>(item: T): T {
+  return {
+    ...item,
+    image:
+      item.imagePath?.startsWith("/uploads/")
+        ? getBackendAssetUrl(item.imagePath)
+        : item.image
+  };
+}
+
 export async function getPublicServices(): Promise<Service[]> {
-  const data = await backendRequest<{ services?: Service[] }>("/services");
-  return Array.isArray(data.services) ? data.services : [];
+  const data = await backendRequest<{
+    services?: Array<Service & { imagePath?: string }>;
+  }>("/services");
+  return Array.isArray(data.services) ? data.services.map(normalizeImage) : [];
 }
 
 export async function getAdminServices(): Promise<AdminService[]> {
-  const data = await backendRequest<{ services: AdminService[] }>("/services?all=1", {}, true);
-  return data.services;
+  const data = await backendRequest<{
+    services?: Array<AdminService & { imagePath?: string }>;
+  }>("/services?all=1", {}, true);
+  return Array.isArray(data.services) ? data.services.map(normalizeImage) : [];
 }
 
 export async function getPublicServiceCategories(): Promise<AdminServiceCategory[]> {
@@ -49,13 +68,17 @@ export async function getAdminServiceCategories(): Promise<AdminServiceCategory[
 }
 
 export async function getPublicProjects(): Promise<Project[]> {
-  const data = await backendRequest<{ projects?: Project[] }>("/projects");
-  return Array.isArray(data.projects) ? data.projects : [];
+  const data = await backendRequest<{
+    projects?: Array<Project & { imagePath?: string }>;
+  }>("/projects");
+  return Array.isArray(data.projects) ? data.projects.map(normalizeImage) : [];
 }
 
 export async function getAdminProjects(): Promise<AdminProject[]> {
-  const data = await backendRequest<{ projects: AdminProject[] }>("/projects?all=1", {}, true);
-  return data.projects;
+  const data = await backendRequest<{
+    projects?: Array<AdminProject & { imagePath?: string }>;
+  }>("/projects?all=1", {}, true);
+  return Array.isArray(data.projects) ? data.projects.map(normalizeImage) : [];
 }
 
 export async function getGalleryCategories() {
